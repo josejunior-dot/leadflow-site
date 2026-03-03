@@ -9,6 +9,15 @@
   <meta property="og:title" content="LeadFlow — CRM Imobiliário com IA" />
   <meta property="og:description" content="Pare de perder lead por demora. Atendimento 24/7 no WhatsApp com IA." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://leadflow-ia.vercel.app/logo-leadflow.png" />
+  <meta property="og:url" content="https://leadflow-ia.vercel.app" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="LeadFlow — CRM Imobiliário com IA" />
+  <meta name="twitter:description" content="O CRM que se preenche sozinho. A conversa no WhatsApp é o dado." />
+  <meta name="twitter:image" content="https://leadflow-ia.vercel.app/logo-leadflow.png" />
+  <link rel="icon" type="image/png" href="logo-leadflow.png" />
+  <link rel="apple-touch-icon" href="logo-leadflow.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -279,6 +288,42 @@
     .lgpd-item{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:500;color:var(--text)}
     .lgpd-item i[data-lucide]{width:18px;height:18px;color:var(--success)}
 
+    /* Manager section */
+    .manager-section{background:#fff}
+    .manager-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:48px}
+    .manager-dashboard{background:var(--bg);border-radius:var(--radius-lg);padding:28px;border:1px solid var(--border)}
+    .manager-dash-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .manager-dash-title{font-size:.9rem;font-weight:700;color:var(--text)}
+    .manager-dash-period{font-size:.7rem;color:var(--muted);background:#fff;padding:4px 12px;border-radius:50px;border:1px solid var(--border)}
+    .manager-chart{display:flex;align-items:flex-end;gap:12px;height:140px;margin-bottom:24px;padding:0 8px}
+    .manager-bar-group{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+    .manager-bars{display:flex;gap:4px;align-items:flex-end;height:120px;width:100%}
+    .manager-bar{flex:1;border-radius:4px 4px 0 0;transition:height 1.5s cubic-bezier(.16,1,.3,1)}
+    .manager-bar-a{background:linear-gradient(180deg,var(--primary),var(--primary-light))}
+    .manager-bar-b{background:linear-gradient(180deg,var(--ia-purple),var(--ia-purple-light));opacity:.6}
+    .manager-bar-label{font-size:.6rem;color:var(--muted);font-weight:600;text-align:center}
+    .manager-legend{display:flex;gap:16px;justify-content:center;margin-bottom:20px}
+    .manager-legend-item{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--muted)}
+    .manager-legend-dot{width:10px;height:10px;border-radius:3px}
+    .manager-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .manager-kpi{background:#fff;border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--border)}
+    .manager-kpi-value{font-size:1.1rem;font-weight:800;color:var(--primary)}
+    .manager-kpi-label{font-size:.6rem;color:var(--muted);margin-top:2px}
+    .manager-features{display:flex;flex-direction:column;gap:20px}
+    .manager-feature{display:flex;gap:16px;align-items:flex-start}
+    .manager-feature-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--icon-bg);color:var(--icon-color)}
+    .manager-feature-icon i[data-lucide]{width:22px;height:22px}
+    .manager-feature-title{font-size:1rem;font-weight:700;margin-bottom:4px}
+    .manager-feature-desc{font-size:.85rem;color:var(--muted);line-height:1.5}
+    .manager-audit{margin-top:24px;background:var(--bg);border-radius:var(--radius-sm);padding:16px 20px;border:1px solid var(--border)}
+    .manager-audit-title{font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+    .manager-audit-title i[data-lucide]{width:14px;height:14px}
+    .audit-log{display:flex;flex-direction:column;gap:8px}
+    .audit-entry{display:flex;gap:10px;font-size:.75rem;line-height:1.4}
+    .audit-time{color:var(--muted);min-width:40px;font-weight:600}
+    .audit-text{color:var(--text)}
+    .audit-text strong{color:var(--primary)}
+
     /* Metrics */
     .metrics{background:#fff;padding:80px 0}
     .metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
@@ -336,13 +381,14 @@
       .intelligence-grid{grid-template-columns:1fr}.perf-grid{grid-template-columns:repeat(2,1fr)}
       .how-grid{grid-template-columns:repeat(3,1fr)}.integ-grid{grid-template-columns:repeat(2,1fr)}
       .metrics-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr 1fr}.how-arrow{display:none}
-      .problem-grid{grid-template-columns:1fr 1fr}
+      .problem-grid{grid-template-columns:1fr 1fr}.manager-grid{grid-template-columns:1fr}
     }
     @media(max-width:768px){
       section{padding:60px 0}.navbar-links{display:none}.navbar-mobile-toggle{display:block}
       .features-grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr}
       .perf-grid{grid-template-columns:1fr 1fr}.integ-grid{grid-template-columns:1fr 1fr}
       .problem-grid{grid-template-columns:1fr}.problem-section{padding:60px 0}
+      .manager-grid{grid-template-columns:1fr}.manager-kpis{grid-template-columns:repeat(3,1fr)}
       .hero-actions{flex-direction:column;align-items:center}.hero-stats{flex-direction:column;gap:16px}
       .pipeline-visual{flex-direction:column}.cta-form{flex-direction:column;align-items:center}
       .cta-input{width:100%}.footer-grid{grid-template-columns:1fr;gap:32px}
@@ -367,7 +413,8 @@
     <a href="#features" onclick="closeMobileMenu()">Funcionalidades</a>
     <a href="#bot" onclick="closeMobileMenu()">Bot IA</a>
     <a href="#pipeline" onclick="closeMobileMenu()">Pipeline</a>
-    <a href="#inteligencia" onclick="closeMobileMenu()">Inteligencia</a>
+    <a href="#inteligencia" onclick="closeMobileMenu()">Inteligência</a>
+    <a href="#gerente" onclick="closeMobileMenu()">Gerente</a>
     <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
     <a href="#cta" onclick="closeMobileMenu()" class="btn-nav btn-nav-primary">Agendar Demo</a>
   </div>
@@ -383,7 +430,8 @@
         <li><a href="#features">Funcionalidades</a></li>
         <li><a href="#bot">Bot IA</a></li>
         <li><a href="#pipeline">Pipeline</a></li>
-        <li><a href="#inteligencia">Inteligencia</a></li>
+        <li><a href="#inteligencia">Inteligência</a></li>
+        <li><a href="#gerente">Gerente</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#cta" class="btn-nav btn-nav-primary">Agendar Demo</a></li>
       </ul>
@@ -397,9 +445,9 @@
     <div class="hero-particles"><div class="particle particle-1"></div><div class="particle particle-2"></div><div class="particle particle-3"></div><div class="particle particle-4"></div></div>
     <div class="container">
       <div class="hero-content">
-        <div class="hero-badge"><span class="hero-badge-dot"></span> Powered by Inteligencia Artificial</div>
+        <div class="hero-badge"><span class="hero-badge-dot"></span> Powered by Inteligência Artificial</div>
         <h1>Pare de perder lead<br/><span class="highlight">por demora.</span></h1>
-        <p class="hero-subtitle">Seu corretor conversa no WhatsApp — e o CRM se preenche sozinho. Qualificacao, agenda, pipeline, follow-up: tudo acontece automaticamente a partir da conversa. Zero formulario. Zero campo obrigatorio.</p>
+        <p class="hero-subtitle">Seu corretor conversa no WhatsApp — e o CRM se preenche sozinho. Qualificação, agenda, pipeline, follow-up: tudo acontece automaticamente a partir da conversa. Zero formulário. Zero campo obrigatório.</p>
         <div class="hero-actions">
           <a href="#cta" class="btn-hero btn-hero-primary"><i data-lucide="arrow-right"></i> Agendar Demo (15 min)</a>
           <a href="#como-funciona" class="btn-hero btn-hero-outline">Ver como funciona</a>
@@ -407,7 +455,7 @@
         <div class="hero-stats">
           <div><div class="hero-stat-value">&lt; 1 min</div><div class="hero-stat-label">Tempo de resposta</div><div class="hero-stat-sub">vs. 12 min na media do mercado</div></div>
           <div><div class="hero-stat-value">24/7</div><div class="hero-stat-label">Atendimento pelo Bot</div><div class="hero-stat-sub">Inclusive feriados e madrugada</div></div>
-          <div><div class="hero-stat-value">3 camadas</div><div class="hero-stat-label">Reativacao automatica</div><div class="hero-stat-sub">Lead frio volta a responder</div></div>
+          <div><div class="hero-stat-value">3 camadas</div><div class="hero-stat-label">Reativação automatica</div><div class="hero-stat-sub">Lead frio volta a responder</div></div>
         </div>
       </div>
       <div class="hero-visual">
@@ -419,18 +467,18 @@
               <div><div class="phone-contact-name">LeadFlow Bot</div><div class="phone-contact-status">online &middot; assistente IA</div></div>
             </div>
             <div class="chat-messages">
-              <div class="chat-msg chat-msg-bot msg-delay-1">Ola! Sou a assistente da Imobiliaria. Como posso ajudar?</div>
+              <div class="chat-msg chat-msg-bot msg-delay-1">Olá! Sou a assistente da Imobiliária. Como posso ajudar?</div>
               <div class="chat-msg chat-msg-user msg-delay-2">Procuro apt 2 quartos no Centro</div>
-              <div class="chat-msg chat-msg-bot msg-delay-3">Otimo! Qual o orcamento e tem urgencia?</div>
-              <div class="chat-msg chat-msg-user msg-delay-4">Ate R$ 400 mil, preciso rapido</div>
-              <div class="chat-msg chat-msg-ia msg-delay-5"><div class="ia-badge"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Analise IA</div>Encontrei 3 opcoes ideais! O primeiro e um AP de 65m2 no Centro por R$ 380.000...</div>
-              <div class="chat-msg chat-msg-bot msg-delay-6">Posso agendar uma visita? Temos horarios amanha!</div>
+              <div class="chat-msg chat-msg-bot msg-delay-3">Ótimo! Qual o orçamento e tem urgência?</div>
+              <div class="chat-msg chat-msg-user msg-delay-4">Até R$ 400 mil, preciso rápido</div>
+              <div class="chat-msg chat-msg-ia msg-delay-5"><div class="ia-badge"><i data-lucide="sparkles" style="width:12px;height:12px;"></i> Análise IA</div>Encontrei 3 opções ideais! O primeiro é um AP de 65m2 no Centro por R$ 380.000...</div>
+              <div class="chat-msg chat-msg-bot msg-delay-6">Posso agendar uma visita? Temos horários amanhã!</div>
             </div>
           </div>
         </div>
         <div class="hero-float-card float-card-1"><div class="float-icon"><i data-lucide="zap"></i></div><div><div class="float-text">Tempo de resposta</div><div class="float-value">&lt; 1 min</div></div></div>
         <div class="hero-float-card float-card-2"><div class="float-icon"><i data-lucide="sparkles"></i></div><div><div class="float-text">Perfil detectado</div><div class="float-value">Investidor</div></div></div>
-        <div class="hero-float-card float-card-3"><div class="float-icon"><i data-lucide="calendar-check"></i></div><div><div class="float-text">Visita agendada</div><div class="float-value">Automatico</div></div></div>
+        <div class="hero-float-card float-card-3"><div class="float-icon"><i data-lucide="calendar-check"></i></div><div><div class="float-text">Visita agendada</div><div class="float-value">Automático</div></div></div>
       </div>
     </div>
   </section>
@@ -441,19 +489,19 @@
       <div class="proof-label">Resultados reais com IA aplicada ao mercado imobiliario</div>
       <div class="proof-cards">
         <div class="proof-card animate-on-scroll">
-          <div class="proof-quote">"Eu detestava CRM. Passava mais tempo preenchendo campo do que vendendo. No LeadFlow, eu converso no WhatsApp e quando abro o sistema ta tudo la — lead qualificado, visita agendada, historico completo."</div>
-          <div class="proof-author"><div class="proof-avatar">RC</div><div><div class="proof-name">Rodrigo C.</div><div class="proof-role">Corretor &middot; Imobiliaria Premium</div></div></div>
+          <div class="proof-quote">"Eu detestava CRM. Passava mais tempo preenchendo campo do que vendendo. No LeadFlow, eu converso no WhatsApp e quando abro o sistema ta tudo la — lead qualificado, visita agendada, histórico completo."</div>
+          <div class="proof-author"><div class="proof-avatar">RC</div><div><div class="proof-name">Rodrigo C.</div><div class="proof-role">Corretor &middot; Imobiliária Premium</div></div></div>
         </div>
         <div class="proof-card animate-on-scroll delay-1">
-          <div class="proof-quote">"Em 3 meses com outro CRM, minha equipe parou de preencher. O pipeline virou mentira. Com o LeadFlow, os dados sao reais porque vem da conversa — ninguem precisa digitar nada."</div>
+          <div class="proof-quote">"Em 3 meses com outro CRM, minha equipe parou de preencher. O pipeline virou mentira. Com o LeadFlow, os dados são reais porque vem da conversa — ninguém precisa digitar nada."</div>
           <div class="proof-author"><div class="proof-avatar">FL</div><div><div class="proof-name">Fernanda L.</div><div class="proof-role">Gerente Comercial &middot; Rede Habitat</div></div></div>
         </div>
       </div>
       <div class="proof-metrics animate-on-scroll delay-2">
-        <div class="proof-metric"><div class="proof-metric-value">&lt; 1 min</div><div class="proof-metric-label">Tempo medio de resposta</div></div>
-        <div class="proof-metric"><div class="proof-metric-value">100%</div><div class="proof-metric-label">Leads com primeiro contato</div></div>
-        <div class="proof-metric"><div class="proof-metric-value">3 niveis</div><div class="proof-metric-label">Follow-up automatico</div></div>
-        <div class="proof-metric"><div class="proof-metric-value">0 lead</div><div class="proof-metric-label">Esquecido no pipeline</div></div>
+        <div class="proof-metric"><div class="proof-metric-value">&lt; 1 min</div><div class="proof-metric-label">Tempo médio de resposta</div></div>
+        <div class="proof-metric"><div class="proof-metric-value">~100%</div><div class="proof-metric-label">Leads respondidos com automação ativa</div></div>
+        <div class="proof-metric"><div class="proof-metric-value">3 camadas</div><div class="proof-metric-label">Follow-up automático</div></div>
+        <div class="proof-metric"><div class="proof-metric-value">SLA</div><div class="proof-metric-label">Nenhum lead sem resposta além do limite</div></div>
       </div>
     </div>
   </div>
@@ -463,8 +511,8 @@
     <div class="container">
       <div style="text-align:center;">
         <div class="section-label animate-on-scroll"><i data-lucide="alert-triangle"></i> O problema real</div>
-        <h2 class="section-title animate-on-scroll delay-1">Vendedor bom vende.<br/><span class="text-gradient">Nao preenche formulario.</span></h2>
-        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">O maior problema dos CRMs tradicionais nao e a tecnologia — e que ninguem usa direito. O pipeline vira fantasia porque depende do corretor parar de vender pra alimentar o sistema.</p>
+        <h2 class="section-title animate-on-scroll delay-1">Vendedor bom vende.<br/><span class="text-gradient">Não preenche formulário.</span></h2>
+        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">O maior problema dos CRMs tradicionais não é a tecnologia — é que ninguém usa direito. O pipeline vira fantasia porque depende do corretor parar de vender pra alimentar o sistema.</p>
       </div>
       <div class="problem-grid">
         <div class="problem-col problem-col-old animate-on-scroll delay-3">
@@ -472,27 +520,27 @@
           <h3>O pipeline morre em 3 meses</h3>
           <ul class="problem-list">
             <li><i data-lucide="x"></i> Corretor precisa parar de vender pra preencher campos</li>
-            <li><i data-lucide="x"></i> Formularios interminaveis: nome, telefone, origem, interesse, orcamento...</li>
-            <li><i data-lucide="x"></i> Depois de 2 semanas, ninguem atualiza mais o status</li>
-            <li><i data-lucide="x"></i> Pipeline desatualizado = decisoes baseadas em achismo</li>
+            <li><i data-lucide="x"></i> Formulários intermináveis: nome, telefone, origem, interesse, orçamento...</li>
+            <li><i data-lucide="x"></i> Depois de 2 semanas, ninguém atualiza mais o status</li>
+            <li><i data-lucide="x"></i> Pipeline desatualizado = decisões baseadas em achismo</li>
             <li><i data-lucide="x"></i> Lead esfria enquanto o corretor preenche o CRM</li>
             <li><i data-lucide="x"></i> Gestor cobra preenchimento, corretor inventa dado</li>
           </ul>
         </div>
         <div class="problem-col problem-col-new animate-on-scroll delay-4">
           <div class="problem-col-tag"><i data-lucide="check"></i> LeadFlow</div>
-          <h3>A conversa e o preenchimento</h3>
+          <h3>A conversa é o preenchimento</h3>
           <ul class="problem-list">
-            <li><i data-lucide="check"></i> Corretor conversa no WhatsApp — CRM se preenche sozinho</li>
-            <li><i data-lucide="check"></i> IA extrai nome, orcamento, preferencias e urgencia da conversa</li>
-            <li><i data-lucide="check"></i> Lead avanca de etapa automaticamente conforme interage</li>
-            <li><i data-lucide="check"></i> Pipeline sempre atualizado porque os dados sao reais</li>
+            <li><i data-lucide="check"></i> Converse por WhatsApp sem sair da plataforma. O CRM se atualiza sozinho</li>
+            <li><i data-lucide="check"></i> IA extrai nome, orçamento, preferências e urgência da conversa</li>
+            <li><i data-lucide="check"></i> Lead avança de etapa automaticamente conforme interage</li>
+            <li><i data-lucide="check"></i> Pipeline sempre atualizado porque os dados são reais</li>
             <li><i data-lucide="check"></i> Corretor foca 100% em vender — o sistema cuida do resto</li>
-            <li><i data-lucide="check"></i> Gestor abre o dashboard e ve a verdade, nao o que digitaram</li>
+            <li><i data-lucide="check"></i> Gestor abre o dashboard e vê a verdade, não o que digitaram</li>
           </ul>
         </div>
       </div>
-      <p class="problem-punchline animate-on-scroll delay-5"><strong>A diferenca?</strong> No LeadFlow, o dado nasce da conversa — nao de um formulario que ninguem quer preencher.</p>
+      <p class="problem-punchline animate-on-scroll delay-5"><strong>A diferença?</strong> No LeadFlow, o dado nasce da conversa — não de um formulário que ninguém quer preencher.</p>
     </div>
   </div>
 
@@ -502,12 +550,12 @@
       <div style="text-align:center;">
         <div class="section-label animate-on-scroll"><i data-lucide="circle-play"></i> Como Funciona</div>
         <h2 class="section-title animate-on-scroll delay-1">Do primeiro "oi" ao<br/><span class="text-gradient">contrato assinado.</span></h2>
-        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Tres etapas. Zero formulario. A conversa faz tudo.</p>
+        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Três etapas. Zero formulário. A conversa faz tudo.</p>
       </div>
       <div class="how-grid">
-        <div class="how-step animate-on-scroll delay-2"><div class="how-number">1</div><h3 class="how-step-title">Lead manda mensagem</h3><p class="how-step-desc">O bot responde em segundos, conduz a conversa naturalmente e extrai tipo, orcamento, bairro e urgencia — sem parecer formulario.</p><span class="how-arrow">&rarr;</span></div>
-        <div class="how-step animate-on-scroll delay-3"><div class="how-number">2</div><h3 class="how-step-title">Conversa vira dado</h3><p class="how-step-desc">A IA transforma cada mensagem em informacao estruturada: perfil, score, match de imoveis. O pipeline se atualiza sozinho. Visita agendada automaticamente.</p><span class="how-arrow">&rarr;</span></div>
-        <div class="how-step animate-on-scroll delay-4"><div class="how-number">3</div><h3 class="how-step-title">Corretor so vende</h3><p class="how-step-desc">Abre o sistema e esta tudo pronto: briefing do lead, historico, preferencias, score e proximo passo. Sem digitar nada, sem preencher nada.</p></div>
+        <div class="how-step animate-on-scroll delay-2"><div class="how-number">1</div><h3 class="how-step-title">Lead manda mensagem</h3><p class="how-step-desc">O bot responde em segundos, conduz a conversa naturalmente e extrai tipo, orçamento, bairro e urgência — sem parecer formulário.</p><span class="how-arrow">&rarr;</span></div>
+        <div class="how-step animate-on-scroll delay-3"><div class="how-number">2</div><h3 class="how-step-title">Conversa vira dado</h3><p class="how-step-desc">A IA transforma cada mensagem em informação estruturada: perfil, score, match de imóveis. O pipeline se atualiza sozinho. Visita agendada automaticamente.</p><span class="how-arrow">&rarr;</span></div>
+        <div class="how-step animate-on-scroll delay-4"><div class="how-number">3</div><h3 class="how-step-title">Corretor só vende</h3><p class="how-step-desc">Abre o sistema e está tudo pronto: briefing do lead, histórico, preferências, score e próximo passo. Sem digitar nada, sem preencher nada.</p></div>
       </div>
     </div>
   </section>
@@ -517,16 +565,16 @@
     <div class="container">
       <div class="features-header">
         <div class="section-label animate-on-scroll"><i data-lucide="layers"></i> Funcionalidades</div>
-        <h2 class="section-title animate-on-scroll delay-1">Feito pra quem vende imovel,<br/><span class="text-gradient">nao pra quem preenche planilha.</span></h2>
+        <h2 class="section-title animate-on-scroll delay-1">Feito pra quem vende imóvel,<br/><span class="text-gradient">não pra quem preenche planilha.</span></h2>
         <p class="section-subtitle animate-on-scroll delay-2">Cada recurso funciona automaticamente a partir da conversa. Nenhum exige que o corretor pare de vender pra alimentar o sistema.</p>
       </div>
       <div class="features-grid">
-        <div class="feature-card animate-on-scroll"><div class="feature-icon"><i data-lucide="message-square-text"></i></div><h3 class="feature-title">Bot WhatsApp com IA</h3><p class="feature-desc">O lead conversa naturalmente — e cada mensagem alimenta o CRM automaticamente. Qualificacao, preferencias e agendamento acontecem dentro da conversa, sem formulario nenhum.</p></div>
-        <div class="feature-card animate-on-scroll delay-1"><div class="feature-icon"><i data-lucide="bar-chart-3"></i></div><h3 class="feature-title">Qualificacao pela Conversa</h3><p class="feature-desc">A IA analisa o que o lead diz — nao o que o corretor digita. Score de 0 a 100 gerado automaticamente a partir do comportamento real na conversa.</p></div>
-        <div class="feature-card animate-on-scroll delay-2"><div class="feature-icon"><i data-lucide="columns-3"></i></div><h3 class="feature-title">Pipeline que Anda Sozinho</h3><p class="feature-desc">O lead avanca de etapa conforme interage — sem ninguem arrastar card ou atualizar status. O corretor abre o Kanban e ve a realidade, nao o que alguem lembrou de preencher.</p></div>
-        <div class="feature-card animate-on-scroll delay-3"><div class="feature-icon"><i data-lucide="target"></i></div><h3 class="feature-title">Gestao de Performance</h3><p class="feature-desc">SLA, ranking e metas calculados com dados reais — vindos das conversas, nao de campos manuais. O gestor ve quem realmente performa, sem depender de auto-relato.</p></div>
-        <div class="feature-card animate-on-scroll delay-4"><div class="feature-icon"><i data-lucide="home"></i></div><h3 class="feature-title">Match de Imoveis</h3><p class="feature-desc">O lead diz o que quer no WhatsApp, a IA cruza com o catalogo e sugere as melhores opcoes. Sem o corretor precisar pesquisar ou filtrar manualmente.</p></div>
-        <div class="feature-card animate-on-scroll delay-5"><div class="feature-icon"><i data-lucide="zap"></i></div><h3 class="feature-title">Automacoes sem Input</h3><p class="feature-desc">Follow-up, nutricao, reativacao, lembrete de visita — 6 automacoes que disparam sozinhas a partir do que acontece na conversa. Nenhuma depende de acao manual.</p></div>
+        <div class="feature-card animate-on-scroll"><div class="feature-icon"><i data-lucide="message-square-text"></i></div><h3 class="feature-title">Bot WhatsApp com IA</h3><p class="feature-desc">O lead conversa naturalmente — e cada mensagem alimenta o CRM automaticamente. Qualificação, preferências e agendamento acontecem dentro da conversa, sem formulário nenhum.</p></div>
+        <div class="feature-card animate-on-scroll delay-1"><div class="feature-icon"><i data-lucide="bar-chart-3"></i></div><h3 class="feature-title">Qualificação pela Conversa</h3><p class="feature-desc">A IA analisa o que o lead diz — não o que o corretor digita. Score de 0 a 100 gerado automaticamente a partir do comportamento real na conversa.</p></div>
+        <div class="feature-card animate-on-scroll delay-2"><div class="feature-icon"><i data-lucide="columns-3"></i></div><h3 class="feature-title">Pipeline que Anda Sozinho</h3><p class="feature-desc">O lead avança de etapa conforme interage — sem ninguém arrastar card ou atualizar status. O corretor abre o Kanban e vê a realidade, não o que alguem lembrou de preencher.</p></div>
+        <div class="feature-card animate-on-scroll delay-3"><div class="feature-icon"><i data-lucide="target"></i></div><h3 class="feature-title">Gestão de Performance</h3><p class="feature-desc">SLA, ranking e metas calculados com dados reais — vindos das conversas, não de campos manuais. O gestor vê quem realmente performa, sem depender de auto-relato.</p></div>
+        <div class="feature-card animate-on-scroll delay-4"><div class="feature-icon"><i data-lucide="home"></i></div><h3 class="feature-title">Match de Imóveis</h3><p class="feature-desc">O lead diz o que quer no WhatsApp, a IA cruza com o catálogo e sugere as melhores opções. Sem o corretor precisar pesquisar ou filtrar manualmente.</p></div>
+        <div class="feature-card animate-on-scroll delay-5"><div class="feature-icon"><i data-lucide="zap"></i></div><h3 class="feature-title">Automações sem Input</h3><p class="feature-desc">Follow-up, nutrição, reativação, lembrete de visita — 6 automações que disparam sozinhas a partir do que acontece na conversa. Nenhuma depende de ação manual.</p></div>
       </div>
     </div>
   </section>
@@ -538,15 +586,15 @@
         <div>
           <div class="section-label animate-on-scroll"><i data-lucide="bot"></i> Bot WhatsApp</div>
           <h2 class="section-title animate-on-scroll delay-1">Seu melhor corretor<br/><span class="text-gradient">nunca dorme.</span></h2>
-          <p class="section-subtitle animate-on-scroll delay-2">Cada etapa do bot gera dados no CRM automaticamente. O lead conversa, o sistema se preenche. Quando o corretor assume, esta tudo documentado — sem ninguem ter digitado nada.</p>
+          <p class="section-subtitle animate-on-scroll delay-2">Cada etapa do bot gera dados no CRM automaticamente. O lead conversa, o sistema se preenche. Quando o corretor assume, está tudo documentado — sem ninguém ter digitado nada.</p>
         </div>
         <div class="bot-flow animate-on-scroll delay-2">
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="message-circle"></i></div><div class="bot-step-content"><div class="bot-step-title">Boas-vindas</div><div class="bot-step-desc">Recepcao natural e profissional. Nome e contato ja entram no CRM automaticamente.</div></div><div class="bot-step-line"></div></div>
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="search"></i></div><div class="bot-step-content"><div class="bot-step-title">Filtragem pela Conversa</div><div class="bot-step-desc">Tipo, orcamento, bairro e urgencia — extraidos da conversa, nao de formulario. O lead nem percebe que esta "preenchendo" o CRM.</div></div><div class="bot-step-line"></div></div>
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="gem"></i></div><div class="bot-step-content"><div class="bot-step-title">Proposta de Valor</div><div class="bot-step-desc">Match automatico com o catalogo. Score atualizado, etapa avanca no pipeline — tudo sem intervencao humana.</div></div><div class="bot-step-line"></div></div>
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="calendar"></i></div><div class="bot-step-content"><div class="bot-step-title">Agendamento Automatico</div><div class="bot-step-desc">Lead diz "amanha as 14h" e a visita aparece na agenda do corretor. Status do pipeline: Visita. Sem ninguem clicar nada.</div></div><div class="bot-step-line"></div></div>
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="user-check"></i></div><div class="bot-step-content"><div class="bot-step-title">Handoff com Briefing</div><div class="bot-step-desc">Corretor recebe: perfil, historico da conversa, preferencias, score e proximo passo — tudo gerado pela conversa, nao por digitacao.</div></div><div class="bot-step-line"></div></div>
-          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="refresh-cw"></i></div><div class="bot-step-content"><div class="bot-step-title">Follow-up Automatico</div><div class="bot-step-desc">30 min, 24h e 72h — o sistema re-engaja leads inativos e atualiza a temperatura no pipeline. Se esqueceu, o LeadFlow nao esquece.</div></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="message-circle"></i></div><div class="bot-step-content"><div class="bot-step-title">Boas-vindas</div><div class="bot-step-desc">Recepção natural e profissional. Nome e contato ja entram no CRM automaticamente.</div></div><div class="bot-step-line"></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="search"></i></div><div class="bot-step-content"><div class="bot-step-title">Filtragem pela Conversa</div><div class="bot-step-desc">Tipo, orçamento, bairro e urgência — extraídos da conversa, não de formulário. O lead nem percebe que está "preenchendo" o CRM.</div></div><div class="bot-step-line"></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="gem"></i></div><div class="bot-step-content"><div class="bot-step-title">Proposta de Valor</div><div class="bot-step-desc">Match automático com o catálogo. Score atualizado, etapa avança no pipeline — tudo sem intervenção humana.</div></div><div class="bot-step-line"></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="calendar"></i></div><div class="bot-step-content"><div class="bot-step-title">Agendamento Automático</div><div class="bot-step-desc">Lead diz "amanhã as 14h" e a visita aparece na agenda do corretor. Status do pipeline: Visita. Sem ninguém clicar nada.</div></div><div class="bot-step-line"></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="user-check"></i></div><div class="bot-step-content"><div class="bot-step-title">Handoff com Briefing</div><div class="bot-step-desc">Corretor recebe: perfil, histórico da conversa, preferências, score e próximo passo — tudo gerado pela conversa, não por digitação.</div></div><div class="bot-step-line"></div></div>
+          <div class="bot-step"><div class="bot-step-dot"><i data-lucide="refresh-cw"></i></div><div class="bot-step-content"><div class="bot-step-title">Follow-up Automático</div><div class="bot-step-desc">30 min, 24h e 72h — o sistema re-engaja leads inativos e atualiza a temperatura no pipeline. Se esqueceu, o LeadFlow não esquece.</div></div></div>
         </div>
       </div>
     </div>
@@ -557,14 +605,14 @@
     <div class="container">
       <div style="text-align:center;">
         <div class="section-label animate-on-scroll"><i data-lucide="kanban"></i> Pipeline Visual</div>
-        <h2 class="section-title animate-on-scroll delay-1">O lead anda sozinho.<br/><span class="text-gradient">Voce so fecha.</span></h2>
-        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Pipeline que se move automaticamente. A IA qualifica, agenda, avanca etapas e atualiza status — sem o corretor preencher um campo sequer. Abra o Kanban e veja onde cada lead esta, em tempo real.</p>
+        <h2 class="section-title animate-on-scroll delay-1">O lead anda sozinho.<br/><span class="text-gradient">Você só fecha.</span></h2>
+        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Pipeline que se move automaticamente. A IA qualifica, agenda, avança etapas e atualiza status — sem o corretor preencher um campo sequer. Abra o Kanban e veja onde cada lead esta, em tempo real.</p>
       </div>
       <div class="pipeline-visual animate-on-scroll delay-3">
         <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--primary);">Novo</span><span class="pipeline-col-count">4</span></div><div class="pipeline-card"><div class="pipeline-card-name">Maria S.</div><div class="pipeline-card-info">Apt 2q &middot; Centro</div><div class="pipeline-card-temp temp-hot">Quente</div></div><div class="pipeline-card"><div class="pipeline-card-name">Joao R.</div><div class="pipeline-card-info">Casa &middot; Jardins</div><div class="pipeline-card-temp temp-warm">Morno</div></div></div>
         <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--ia-purple);">Qualificado</span><span class="pipeline-col-count">3</span></div><div class="pipeline-card"><div class="pipeline-card-name">Ana O.</div><div class="pipeline-card-info">Sala Comercial</div><div class="pipeline-card-temp temp-hot">Quente</div></div></div>
         <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--success);">Visita</span><span class="pipeline-col-count">2</span></div><div class="pipeline-card"><div class="pipeline-card-name">Carlos M.</div><div class="pipeline-card-info">Apt 3q &middot; Vila Nova</div><div class="pipeline-card-temp temp-hot">Quente</div></div></div>
-        <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--alert);">Negociacao</span><span class="pipeline-col-count">2</span></div><div class="pipeline-card"><div class="pipeline-card-name">Pedro L.</div><div class="pipeline-card-info">Casa 4q &middot; Condominio</div><div class="pipeline-card-temp temp-hot">Quente</div></div></div>
+        <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--alert);">Negociação</span><span class="pipeline-col-count">2</span></div><div class="pipeline-card"><div class="pipeline-card-name">Pedro L.</div><div class="pipeline-card-info">Casa 4q &middot; Condomínio</div><div class="pipeline-card-temp temp-hot">Quente</div></div></div>
         <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:#F57C00;">Proposta</span><span class="pipeline-col-count">1</span></div><div class="pipeline-card"><div class="pipeline-card-name">Lucia F.</div><div class="pipeline-card-info">Apt 2q &middot; Centro</div><div class="pipeline-card-temp temp-hot">Quente</div></div></div>
         <div class="pipeline-col"><div class="pipeline-col-header"><span class="pipeline-col-title" style="color:var(--success);">Fechado</span><span class="pipeline-col-count">5</span></div><div class="pipeline-card" style="border-color:rgba(46,125,50,.3);background:rgba(46,125,50,.02);"><div class="pipeline-card-name">Roberto C.</div><div class="pipeline-card-info">Casa 3q &middot; Jardins</div><div class="pipeline-card-temp" style="background:rgba(46,125,50,.1);color:var(--success);">Vendido</div></div></div>
       </div>
@@ -576,15 +624,15 @@
     <div class="performance-content">
       <div class="container">
         <div class="performance-header">
-          <div class="section-label animate-on-scroll"><i data-lucide="trending-up"></i> Gestao de Performance</div>
+          <div class="section-label animate-on-scroll"><i data-lucide="trending-up"></i> Gestão de Performance</div>
           <h2 class="section-title animate-on-scroll delay-1">Menos lead esquecido.<br/><span class="text-gradient-gold">Mais disciplina, mais venda.</span></h2>
-          <p class="section-subtitle animate-on-scroll delay-2">Ferramentas de gestao que transformam dados em acao. Cada corretor sabe o que fazer, quando fazer e quanto falta pra meta.</p>
+          <p class="section-subtitle animate-on-scroll delay-2">Ferramentas de gestão que transformam dados em ação. Cada corretor sabe o que fazer, quando fazer e quanto falta pra meta.</p>
         </div>
         <div class="perf-grid animate-on-scroll delay-3">
-          <div class="perf-card"><div class="perf-icon"><i data-lucide="clock"></i></div><div class="perf-title">SLA de Resposta</div><div class="perf-desc">Alerta automatico quando o tempo de resposta passa do limite. Corretor premiado por velocidade.</div></div>
-          <div class="perf-card"><div class="perf-icon"><i data-lucide="award"></i></div><div class="perf-title">Ranking por Conversao</div><div class="perf-desc">Ranking semanal com XP, niveis e conquistas. Quem converte mais, aparece mais.</div></div>
-          <div class="perf-card"><div class="perf-icon"><i data-lucide="target"></i></div><div class="perf-title">Metas de Follow-up</div><div class="perf-desc">Streaks diarios e alertas de lead parado. A disciplina vira habito com reforco positivo.</div></div>
-          <div class="perf-card"><div class="perf-icon"><i data-lucide="bell-ring"></i></div><div class="perf-title">Alerta de Lead Parado</div><div class="perf-desc">Lead sem interacao? O sistema avisa antes que esfrie. Nenhuma oportunidade morre no silencio.</div></div>
+          <div class="perf-card"><div class="perf-icon"><i data-lucide="clock"></i></div><div class="perf-title">SLA de Resposta</div><div class="perf-desc">Alerta automático quando o tempo de resposta passa do limite. Corretor premiado por velocidade.</div></div>
+          <div class="perf-card"><div class="perf-icon"><i data-lucide="award"></i></div><div class="perf-title">Ranking por Conversão</div><div class="perf-desc">Ranking semanal com XP, níveis e conquistas. Quem converte mais, aparece mais.</div></div>
+          <div class="perf-card"><div class="perf-icon"><i data-lucide="target"></i></div><div class="perf-title">Metas de Follow-up</div><div class="perf-desc">Streaks diários e alertas de lead parado. A disciplina vira hábito com reforço positivo.</div></div>
+          <div class="perf-card"><div class="perf-icon"><i data-lucide="bell-ring"></i></div><div class="perf-title">Alerta de Lead Parado</div><div class="perf-desc">Lead sem interação? O sistema avisa antes que esfrie. Nenhuma oportunidade morre no silêncio.</div></div>
         </div>
       </div>
     </div>
@@ -595,8 +643,8 @@
     <div class="container">
       <div style="text-align:center;">
         <div class="section-label animate-on-scroll"><i data-lucide="brain"></i> Lead Intelligence</div>
-        <h2 class="section-title animate-on-scroll delay-1">Entenda cada lead<br/><span class="text-gradient">como ninguem.</span></h2>
-        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Tudo extraido da conversa. A IA analisa o que o lead diz, como diz e quando diz — e transforma em inteligencia acionavel sem ninguem preencher nada.</p>
+        <h2 class="section-title animate-on-scroll delay-1">Entenda cada lead<br/><span class="text-gradient">como ninguém.</span></h2>
+        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Tudo extraído da conversa. A IA analisa o que o lead diz, como diz e quando diz — e transforma em inteligência acionável sem ninguém preencher nada.</p>
       </div>
       <div class="intelligence-grid">
         <div class="intel-visual animate-on-scroll">
@@ -611,15 +659,66 @@
             <div class="intel-bars">
               <div class="intel-bar"><span class="intel-bar-label">Engajamento</span><div class="intel-bar-track"><div class="intel-bar-fill bar-blue" style="width:85%;"></div></div><span class="intel-bar-value">85%</span></div>
               <div class="intel-bar"><span class="intel-bar-label">Urgencia</span><div class="intel-bar-track"><div class="intel-bar-fill bar-purple" style="width:72%;"></div></div><span class="intel-bar-value">72%</span></div>
-              <div class="intel-bar"><span class="intel-bar-label">Fit imovel</span><div class="intel-bar-track"><div class="intel-bar-fill bar-green" style="width:93%;"></div></div><span class="intel-bar-value">93%</span></div>
+              <div class="intel-bar"><span class="intel-bar-label">Fit imóvel</span><div class="intel-bar-track"><div class="intel-bar-fill bar-green" style="width:93%;"></div></div><span class="intel-bar-value">93%</span></div>
             </div>
           </div>
         </div>
         <div class="intel-features animate-on-scroll delay-2">
-          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="scan-face"></i></div><div><div class="intel-feature-title">5 Perfis Comportamentais</div><div class="intel-feature-desc">A IA detecta se o lead e investidor, ansioso, exploratorio, desconfiado ou direto — e adapta a abordagem automaticamente.</div></div></div>
-          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="thermometer"></i></div><div><div class="intel-feature-title">Temperatura em Tempo Real</div><div class="intel-feature-desc">Score dinamico que combina frequencia de contato, engajamento e estagio no pipeline. Voce age na hora certa.</div></div></div>
-          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="crosshair"></i></div><div><div class="intel-feature-title">Match Inteligente</div><div class="intel-feature-desc">Cruzamento automatico entre o que o lead busca e seu catalogo. Pontuacao de compatibilidade pra cada imovel.</div></div></div>
-          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="file-text"></i></div><div><div class="intel-feature-title">Briefing Automatico</div><div class="intel-feature-desc">Antes de cada atendimento: resumo do lead, historico, preferencias e o que a IA recomenda como proximo passo.</div></div></div>
+          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="scan-face"></i></div><div><div class="intel-feature-title">5 Perfis Comportamentais</div><div class="intel-feature-desc">A IA detecta se o lead é investidor, ansioso, exploratório, desconfiado ou direto — e adapta a abordagem automaticamente.</div></div></div>
+          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="thermometer"></i></div><div><div class="intel-feature-title">Temperatura em Tempo Real</div><div class="intel-feature-desc">Score dinâmico que combina frequência de contato, engajamento e estágio no pipeline. Você age na hora certa.</div></div></div>
+          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="crosshair"></i></div><div><div class="intel-feature-title">Match Inteligente</div><div class="intel-feature-desc">Cruzamento automático entre o que o lead busca e seu catálogo. Pontuação de compatibilidade pra cada imóvel.</div></div></div>
+          <div class="intel-feature"><div class="intel-feature-icon"><i data-lucide="file-text"></i></div><div><div class="intel-feature-title">Briefing Automático</div><div class="intel-feature-desc">Antes de cada atendimento: resumo do lead, histórico, preferências e o que a IA recomenda como próximo passo.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISAO DO GERENTE -->
+  <section class="manager-section" id="gerente">
+    <div class="container">
+      <div style="text-align:center;">
+        <div class="section-label animate-on-scroll"><i data-lucide="layout-dashboard"></i> Visão do Gerente</div>
+        <h2 class="section-title animate-on-scroll delay-1">Dados reais, não<br/><span class="text-gradient">o que digitaram.</span></h2>
+        <p class="section-subtitle animate-on-scroll delay-2" style="margin:0 auto;">Tudo fica registrado — com trilha de auditoria para o gerente acompanhar o time. Dashboard em tempo real com métricas vindas das conversas, não de campos preenchidos.</p>
+      </div>
+      <div class="manager-grid">
+        <div class="manager-dashboard animate-on-scroll delay-3">
+          <div class="manager-dash-header">
+            <div class="manager-dash-title">Performance da Equipe</div>
+            <div class="manager-dash-period">Últimos 30 dias</div>
+          </div>
+          <div class="manager-legend">
+            <div class="manager-legend-item"><div class="manager-legend-dot" style="background:var(--primary);"></div> Leads convertidos</div>
+            <div class="manager-legend-item"><div class="manager-legend-dot" style="background:var(--ia-purple);opacity:.6;"></div> Leads recebidos</div>
+          </div>
+          <div class="manager-chart">
+            <div class="manager-bar-group"><div class="manager-bars"><div class="manager-bar manager-bar-a" style="height:70%;"></div><div class="manager-bar manager-bar-b" style="height:100%;"></div></div><div class="manager-bar-label">Ana</div></div>
+            <div class="manager-bar-group"><div class="manager-bars"><div class="manager-bar manager-bar-a" style="height:55%;"></div><div class="manager-bar manager-bar-b" style="height:85%;"></div></div><div class="manager-bar-label">Carlos</div></div>
+            <div class="manager-bar-group"><div class="manager-bars"><div class="manager-bar manager-bar-a" style="height:90%;"></div><div class="manager-bar manager-bar-b" style="height:95%;"></div></div><div class="manager-bar-label">Maria</div></div>
+            <div class="manager-bar-group"><div class="manager-bars"><div class="manager-bar manager-bar-a" style="height:40%;"></div><div class="manager-bar manager-bar-b" style="height:80%;"></div></div><div class="manager-bar-label">Pedro</div></div>
+            <div class="manager-bar-group"><div class="manager-bars"><div class="manager-bar manager-bar-a" style="height:65%;"></div><div class="manager-bar manager-bar-b" style="height:90%;"></div></div><div class="manager-bar-label">Lucia</div></div>
+          </div>
+          <div class="manager-kpis">
+            <div class="manager-kpi"><div class="manager-kpi-value">32%</div><div class="manager-kpi-label">Taxa de conversão</div></div>
+            <div class="manager-kpi"><div class="manager-kpi-value">2 min</div><div class="manager-kpi-label">Tempo médio resposta</div></div>
+            <div class="manager-kpi"><div class="manager-kpi-value">94%</div><div class="manager-kpi-label">SLA cumprido</div></div>
+          </div>
+        </div>
+        <div class="manager-features animate-on-scroll delay-4">
+          <div class="manager-feature"><div class="manager-feature-icon"><i data-lucide="bar-chart-3"></i></div><div><div class="manager-feature-title">Comparativo por Corretor</div><div class="manager-feature-desc">Veja quem converte mais, quem demora pra responder e quem precisa de suporte — com dados reais, não auto-relato.</div></div></div>
+          <div class="manager-feature"><div class="manager-feature-icon"><i data-lucide="shield-check"></i></div><div><div class="manager-feature-title">Trilha de Auditoria Completa</div><div class="manager-feature-desc">Cada interação, cada mudança de status, cada mensagem — tudo registrado com data/hora e autor. Transparência total.</div></div></div>
+          <div class="manager-feature"><div class="manager-feature-icon"><i data-lucide="file-bar-chart"></i></div><div><div class="manager-feature-title">Relatórios Automáticos</div><div class="manager-feature-desc">Relatórios semanais e mensais gerados automaticamente. Taxa de conversão, tempo de resposta, funil por etapa e ranking da equipe.</div></div></div>
+          <div class="manager-feature"><div class="manager-feature-icon"><i data-lucide="users"></i></div><div><div class="manager-feature-title">Controle de Equipe (RBAC)</div><div class="manager-feature-desc">3 níveis de acesso: Admin, Gerente e Corretor. Cada um vê só o que precisa. Gerente monitora tudo sem interferir no fluxo.</div></div></div>
+          <div class="manager-audit">
+            <div class="manager-audit-title"><i data-lucide="scroll-text"></i> Trilha de auditoria (exemplo)</div>
+            <div class="audit-log">
+              <div class="audit-entry"><span class="audit-time">14:32</span><span class="audit-text"><strong>Bot</strong> qualificou Maria S. — Score: 87 (Investidor)</span></div>
+              <div class="audit-entry"><span class="audit-time">14:33</span><span class="audit-text"><strong>Sistema</strong> avançou Maria S. para etapa "Qualificado"</span></div>
+              <div class="audit-entry"><span class="audit-time">14:35</span><span class="audit-text"><strong>Bot</strong> agendou visita — 05/03 às 10h (Apt Centro)</span></div>
+              <div class="audit-entry"><span class="audit-time">14:36</span><span class="audit-text"><strong>Sistema</strong> notificou corretor Ana O. via push</span></div>
+              <div class="audit-entry"><span class="audit-time">14:38</span><span class="audit-text"><strong>Ana O.</strong> abriu o briefing do lead</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -629,22 +728,22 @@
   <section class="integrations" id="integracoes">
     <div class="container">
       <div class="integrations-header">
-        <div class="section-label animate-on-scroll"><i data-lucide="plug"></i> Integracoes & Seguranca</div>
-        <h2 class="section-title animate-on-scroll delay-1">Conectado com o que<br/><span class="text-gradient">voce ja usa.</span></h2>
-        <p class="section-subtitle animate-on-scroll delay-2">APIs oficiais, dados protegidos e conformidade com a legislacao brasileira.</p>
+        <div class="section-label animate-on-scroll"><i data-lucide="plug"></i> Integrações & Segurança</div>
+        <h2 class="section-title animate-on-scroll delay-1">Conectado com o que<br/><span class="text-gradient">você ja usa.</span></h2>
+        <p class="section-subtitle animate-on-scroll delay-2">APIs oficiais, dados protegidos e conformidade com a legislação brasileira.</p>
       </div>
       <div class="integ-grid animate-on-scroll delay-3">
         <div class="integ-card"><div class="integ-icon"><i data-lucide="message-circle"></i></div><div class="integ-name">WhatsApp Cloud API</div><div class="integ-desc">API oficial da Meta. Sem risco de banimento.</div></div>
-        <div class="integ-card"><div class="integ-icon"><i data-lucide="sparkles"></i></div><div class="integ-name">OpenAI (GPT)</div><div class="integ-desc">IA de ultima geracao pra qualificacao e matching.</div></div>
-        <div class="integ-card"><div class="integ-icon"><i data-lucide="mail"></i></div><div class="integ-name">E-mail Transacional</div><div class="integ-desc">Follow-ups e nutricao automatica por e-mail.</div></div>
+        <div class="integ-card"><div class="integ-icon"><i data-lucide="sparkles"></i></div><div class="integ-name">OpenAI (GPT)</div><div class="integ-desc">IA de última geração. Dados sensíveis mascarados, sem treinar modelos com seus dados.</div></div>
+        <div class="integ-card"><div class="integ-icon"><i data-lucide="mail"></i></div><div class="integ-name">E-mail Transacional</div><div class="integ-desc">Follow-ups e nutrição automatica por e-mail.</div></div>
         <div class="integ-card"><div class="integ-icon"><i data-lucide="bell"></i></div><div class="integ-name">Push Notifications</div><div class="integ-desc">Alertas no navegador pra leads quentes em tempo real.</div></div>
       </div>
       <div class="lgpd-bar animate-on-scroll delay-4">
         <div class="lgpd-item"><i data-lucide="check"></i> LGPD Compliance</div>
-        <div class="lgpd-item"><i data-lucide="check"></i> Opt-in obrigatorio</div>
-        <div class="lgpd-item"><i data-lucide="check"></i> Criptografia em transito</div>
+        <div class="lgpd-item"><i data-lucide="check"></i> Opt-in obrigatório</div>
+        <div class="lgpd-item"><i data-lucide="check"></i> Criptografia em trânsito</div>
         <div class="lgpd-item"><i data-lucide="check"></i> Dados no Brasil (sa-east-1)</div>
-        <div class="lgpd-item"><i data-lucide="check"></i> RBAC por funcao</div>
+        <div class="lgpd-item"><i data-lucide="check"></i> RBAC por função</div>
       </div>
     </div>
   </section>
@@ -653,9 +752,9 @@
   <section class="metrics">
     <div class="container">
       <div class="metrics-grid">
-        <div class="metric-card animate-on-scroll"><div class="metric-value text-gradient">&lt; 1 min</div><div class="metric-label">Tempo medio de resposta</div><div class="metric-sublabel">vs. 12 min sem o bot</div></div>
-        <div class="metric-card animate-on-scroll delay-1"><div class="metric-value text-gradient">100%</div><div class="metric-label">Leads com primeiro contato</div><div class="metric-sublabel">Zero lead ignorado</div></div>
-        <div class="metric-card animate-on-scroll delay-2"><div class="metric-value text-gradient">6</div><div class="metric-label">Automacoes ativas</div><div class="metric-sublabel">Follow-up no piloto automatico</div></div>
+        <div class="metric-card animate-on-scroll"><div class="metric-value text-gradient">&lt; 1 min</div><div class="metric-label">Tempo médio de resposta</div><div class="metric-sublabel">vs. 12 min sem o bot</div></div>
+        <div class="metric-card animate-on-scroll delay-1"><div class="metric-value text-gradient">~100%</div><div class="metric-label">Leads respondidos</div><div class="metric-sublabel">Com automação ativa</div></div>
+        <div class="metric-card animate-on-scroll delay-2"><div class="metric-value text-gradient">6</div><div class="metric-label">Automações ativas</div><div class="metric-sublabel">Follow-up no piloto automático</div></div>
         <div class="metric-card animate-on-scroll delay-3"><div class="metric-value text-gradient">3 roles</div><div class="metric-label">Niveis de acesso</div><div class="metric-sublabel">Admin &middot; Gerente &middot; Corretor</div></div>
       </div>
     </div>
@@ -666,16 +765,16 @@
     <div class="container">
       <div class="faq-header">
         <div class="section-label animate-on-scroll"><i data-lucide="help-circle"></i> Perguntas Frequentes</div>
-        <h2 class="section-title animate-on-scroll delay-1">Tudo que voce precisa<br/><span class="text-gradient">saber antes de comecar.</span></h2>
+        <h2 class="section-title animate-on-scroll delay-1">Tudo que você precisa<br/><span class="text-gradient">saber antes de começar.</span></h2>
       </div>
       <div class="faq-grid">
-        <div class="faq-item animate-on-scroll"><button class="faq-question" onclick="toggleFaq(this)">Preciso trocar meu CRM atual?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Depende. Se seu CRM depende de preenchimento manual e sua equipe ja parou de usar, sim — o LeadFlow resolve exatamente esse problema, porque os dados nascem da conversa no WhatsApp. Se seu CRM funciona bem, o LeadFlow pode complementar como canal de captacao e qualificacao.</div></div>
-        <div class="faq-item animate-on-scroll delay-1"><button class="faq-question" onclick="toggleFaq(this)">Minha equipe precisa preencher formularios?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Nao. Esse e o ponto. A IA extrai todas as informacoes relevantes direto da conversa no WhatsApp — nome, tipo de imovel, orcamento, bairro, urgencia, perfil comportamental. O pipeline se atualiza automaticamente conforme o lead interage. O corretor nao preenche um campo sequer.</div></div>
-        <div class="faq-item animate-on-scroll delay-2"><button class="faq-question" onclick="toggleFaq(this)">Funciona com meu catalogo de imoveis?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Sim. Voce cadastra seus imoveis direto no sistema (tipo, preco, localizacao, fotos) e a IA faz o match automaticamente com cada lead. Tambem suportamos importacao em lote.</div></div>
-        <div class="faq-item animate-on-scroll delay-3"><button class="faq-question" onclick="toggleFaq(this)">Quanto tempo leva pra configurar?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">O setup basico leva menos de 1 dia. Criamos sua conta, configuramos o numero do WhatsApp (API oficial da Meta), importamos o catalogo e ja comeca a funcionar. O onboarding completo da equipe leva de 2 a 3 dias.</div></div>
-        <div class="faq-item animate-on-scroll delay-4"><button class="faq-question" onclick="toggleFaq(this)">A IA fala errado ou inventa informacao?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">O bot trabalha com dados reais do seu catalogo e regras configuradas por voce. Ele nao "inventa" — sugere imoveis do seu banco, com precos e detalhes reais. Se nao encontra match, avisa honestamente e encaminha ao corretor.</div></div>
-        <div class="faq-item animate-on-scroll delay-5"><button class="faq-question" onclick="toggleFaq(this)">Como funciona o handoff pro corretor?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Quando o lead esta qualificado ou pede pra falar com um humano, o bot faz a transicao suave. O corretor recebe uma notificacao com briefing completo: perfil do lead, historico de conversa, preferencias, score e proximos passos recomendados pela IA. Tudo gerado pela conversa — zero digitacao.</div></div>
-        <div class="faq-item animate-on-scroll"><button class="faq-question" onclick="toggleFaq(this)">Qual o preco?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Planos a partir de R$ 197/mes por equipe de ate 5 corretores. Inclui bot WhatsApp, CRM completo, automacoes e suporte. Agende uma demo de 15 minutos e receba uma proposta personalizada pro seu volume.</div></div>
+        <div class="faq-item animate-on-scroll"><button class="faq-question" onclick="toggleFaq(this)">Preciso trocar meu CRM atual?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Depende. Se seu CRM depende de preenchimento manual e sua equipe ja parou de usar, sim — o LeadFlow resolve exatamente esse problema, porque os dados nascem da conversa no WhatsApp. Se seu CRM funciona bem, o LeadFlow pode complementar como canal de captação e qualificação.</div></div>
+        <div class="faq-item animate-on-scroll delay-1"><button class="faq-question" onclick="toggleFaq(this)">Minha equipe precisa preencher formulários?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Nao. Esse é o ponto. A IA extrai todas as informações relevantes direto da conversa no WhatsApp — nome, tipo de imóvel, orçamento, bairro, urgência, perfil comportamental. O pipeline se atualiza automaticamente conforme o lead interage. O corretor não preenche um campo sequer.</div></div>
+        <div class="faq-item animate-on-scroll delay-2"><button class="faq-question" onclick="toggleFaq(this)">Funciona com meu catálogo de imóveis?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Sim. Você cadastra seus imóveis direto no sistema (tipo, preço, localização, fotos) e a IA faz o match automaticamente com cada lead. Tambem suportamos importacao em lote.</div></div>
+        <div class="faq-item animate-on-scroll delay-3"><button class="faq-question" onclick="toggleFaq(this)">Quanto tempo leva pra configurar?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">O setup básico leva menos de 1 dia. Criamos sua conta, configuramos o numero do WhatsApp (API oficial da Meta), importamos o catálogo e ja começa a funcionar. O onboarding completo da equipe leva de 2 a 3 dias.</div></div>
+        <div class="faq-item animate-on-scroll delay-4"><button class="faq-question" onclick="toggleFaq(this)">A IA fala errado ou inventa informacao?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">O bot trabalha com dados reais do seu catálogo e regras configuradas por você. Ele não "inventa" — sugere imóveis do seu banco, com preços e detalhes reais. Se não encontra match, avisa honestamente e encaminha ao corretor.</div></div>
+        <div class="faq-item animate-on-scroll delay-5"><button class="faq-question" onclick="toggleFaq(this)">Como funciona o handoff pro corretor?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Quando o lead está qualificado ou pede pra falar com um humano, o bot faz a transição suave. O corretor recebe uma notificação com briefing completo: perfil do lead, histórico de conversa, preferências, score e próximos passos recomendados pela IA. Tudo gerado pela conversa — zero digitação.</div></div>
+        <div class="faq-item animate-on-scroll"><button class="faq-question" onclick="toggleFaq(this)">Qual o preco?<span class="faq-chevron"><i data-lucide="chevron-down"></i></span></button><div class="faq-answer">Planos a partir de R$ 197/mes por equipe de até 5 corretores. Inclui bot WhatsApp, CRM completo, automações e suporte. Agende uma demo de 15 minutos e receba uma proposta personalizada pro seu volume.</div></div>
       </div>
     </div>
   </section>
@@ -683,13 +782,13 @@
   <!-- CTA -->
   <section class="cta-section" id="cta">
     <div class="cta-content animate-on-scroll">
-      <h2>Chega de CRM que ninguem usa.<br/><span style="background:linear-gradient(135deg,var(--primary-light),var(--ia-purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Veja o que a conversa faz.</span></h2>
-      <p>15 minutos de demo. Voce vai ver leads sendo qualificados, pipeline se atualizando e visitas agendadas — tudo a partir de uma conversa no WhatsApp, sem ninguem preencher nada.</p>
+      <h2>Chega de CRM que ninguém usa.<br/><span style="background:linear-gradient(135deg,var(--primary-light),var(--ia-purple-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Veja o que a conversa faz.</span></h2>
+      <p>15 minutos de demo. Você vai ver leads sendo qualificados, pipeline se atualizando e visitas agendadas — tudo a partir de uma conversa no WhatsApp, sem ninguém preencher nada.</p>
       <div class="cta-form">
         <input type="email" class="cta-input" placeholder="Seu melhor e-mail" />
         <a href="#" class="btn-hero btn-hero-primary" onclick="handleCTA(event)">Agendar Demo <i data-lucide="arrow-right" style="width:18px;height:18px;"></i></a>
       </div>
-      <p class="cta-note">Demo gratuita de 15 min &middot; Sem compromisso &middot; Resposta em ate 2h</p>
+      <p class="cta-note">Demo gratuita de 15 min &middot; Sem compromisso &middot; Resposta em até 2h</p>
     </div>
   </section>
 
@@ -699,10 +798,10 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#" class="navbar-logo footer-logo"><img src="logo-leadflow.png" alt="LeadFlow" class="logo-blue" /><img src="logo-leadflow-white.png" alt="LeadFlow" class="logo-white" /></a>
-          <p>O CRM que se preenche sozinho. A conversa no WhatsApp e o dado — o corretor so vende.</p>
+          <p>O CRM que se preenche sozinho. A conversa no WhatsApp é o dado — o corretor só vende.</p>
         </div>
         <div><div class="footer-col-title">Produto</div><ul class="footer-links"><li><a href="#como-funciona">Como funciona</a></li><li><a href="#features">Funcionalidades</a></li><li><a href="#bot">Bot WhatsApp</a></li><li><a href="#pipeline">Pipeline</a></li></ul></div>
-        <div><div class="footer-col-title">Recursos</div><ul class="footer-links"><li><a href="#inteligencia">Lead Intelligence</a></li><li><a href="#performance">Performance</a></li><li><a href="#integracoes">Integracoes</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+        <div><div class="footer-col-title">Recursos</div><ul class="footer-links"><li><a href="#inteligencia">Lead Intelligence</a></li><li><a href="#performance">Performance</a></li><li><a href="#integracoes">Integrações</a></li><li><a href="#faq">FAQ</a></li></ul></div>
         <div><div class="footer-col-title">Empresa</div><ul class="footer-links"><li><a href="#">Sobre nos</a></li><li><a href="#">Contato</a></li><li><a href="#">Privacidade</a></li><li><a href="#">Termos de uso</a></li></ul></div>
       </div>
       <div class="footer-bottom">
@@ -746,7 +845,7 @@
     function handleCTA(e) {
       e.preventDefault();
       const input = document.querySelector('.cta-input');
-      if (input.value) { alert('Otimo! Vamos agendar sua demo. Voce recebera um e-mail em ate 2 horas.'); input.value = ''; }
+      if (input.value) { alert('Ótimo! Vamos agendar sua demo. Você recebera um e-mail em até 2 horas.'); input.value = ''; }
       else { input.focus(); input.style.borderColor = 'var(--urgent)'; setTimeout(() => input.style.borderColor = '', 2000); }
     }
 
