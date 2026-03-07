@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposta LeadFlow — CRM Imobiliário com IA</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="logo-leadflow.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; font-size:16px; }
+    body { font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif; color:#1C1E21; background:#fff; overflow-x:hidden; line-height:1.6; -webkit-font-smoothing:antialiased; }
+    :root {
+      --primary:#1877F2; --primary-light:#4599FF; --primary-dark:#1360C4;
+      --ia-purple:#7C4DFF; --ia-purple-light:#B388FF;
+      --success:#2E7D32; --success-light:#4CAF50; --alert:#F9A825;
+      --urgent:#C62828; --cold:#1565C0; --bg:#F0F2F5; --text:#1C1E21;
+      --muted:#65676B; --border:#E4E6EB; --white:#FFF;
+      --shadow-sm:0 1px 3px rgba(0,0,0,0.08); --shadow-md:0 4px 20px rgba(0,0,0,0.1);
+      --radius:16px; --radius-sm:10px; --radius-lg:24px; --max-w:900px;
+    }
+    .container { max-width:var(--max-w); margin:0 auto; padding:0 24px; }
+    .text-gradient { background:linear-gradient(135deg,var(--primary),var(--ia-purple)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+
+    /* Header */
+    .prop-header { padding:20px 0; border-bottom:1px solid var(--border); }
+    .prop-header-inner { display:flex; align-items:center; justify-content:space-between; }
+    .prop-header img { height:32px; }
+    .prop-header-badge { font-size:.7rem; font-weight:600; color:var(--primary); background:rgba(24,119,242,.08); padding:4px 12px; border-radius:20px; }
+
+    /* Hero */
+    .prop-hero { padding:48px 0 32px; text-align:center; }
+    .prop-hero-greeting { font-size:1rem; color:var(--muted); margin-bottom:8px; }
+    .prop-hero h1 { font-size:1.8rem; font-weight:800; line-height:1.2; margin-bottom:12px; }
+    .prop-hero p { font-size:.95rem; color:var(--muted); max-width:600px; margin:0 auto; }
+
+    /* Plan recommendation */
+    .prop-plan { margin:32px 0; background:linear-gradient(135deg,#0a1628,#1a1a3e 50%,#2d1b4e); border-radius:var(--radius-lg); padding:28px; color:#fff; position:relative; overflow:hidden; }
+    .prop-plan::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 80%,rgba(24,119,242,.15),transparent 50%),radial-gradient(circle at 80% 20%,rgba(124,77,255,.15),transparent 50%); }
+    .prop-plan-inner { position:relative; z-index:2; }
+    .prop-plan-label { font-size:.65rem; text-transform:uppercase; letter-spacing:.1em; color:rgba(255,255,255,.5); margin-bottom:8px; }
+    .prop-plan-name { font-size:1.4rem; font-weight:800; margin-bottom:4px; }
+    .prop-plan-price { font-size:2rem; font-weight:900; margin-bottom:2px; }
+    .prop-plan-price span { font-size:.9rem; font-weight:400; color:rgba(255,255,255,.6); }
+    .prop-plan-details { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:20px 0 16px; }
+    .prop-plan-detail { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:10px; padding:12px; text-align:center; }
+    .prop-plan-detail-val { font-size:1.1rem; font-weight:800; }
+    .prop-plan-detail-lbl { font-size:.65rem; color:rgba(255,255,255,.5); margin-top:2px; }
+    .prop-plan-features { display:grid; grid-template-columns:1fr 1fr; gap:6px 16px; margin-top:16px; }
+    .prop-plan-feat { font-size:.75rem; color:rgba(255,255,255,.7); display:flex; align-items:center; gap:6px; }
+    .prop-plan-feat i[data-lucide] { width:14px; height:14px; color:#4CAF50; }
+    .prop-plan-excess { font-size:.72rem; color:rgba(255,255,255,.4); margin-top:16px; padding-top:12px; border-top:1px solid rgba(255,255,255,.08); }
+
+    /* ROI section */
+    .prop-roi { margin:36px 0; }
+    .prop-roi h2 { font-size:1.3rem; font-weight:800; margin-bottom:4px; }
+    .prop-roi-sub { font-size:.85rem; color:var(--muted); margin-bottom:20px; }
+
+    /* ROI form + result (reused styles) */
+    .roi-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; align-items:start; }
+    .roi-form { background:#fff; border:1px solid var(--border); border-radius:var(--radius-lg); padding:20px 24px; box-shadow:var(--shadow-sm); }
+    .roi-form-title { font-size:.9rem; font-weight:700; margin-bottom:14px; display:flex; align-items:center; gap:8px; }
+    .roi-form-title i[data-lucide] { width:18px; height:18px; color:var(--primary); }
+    .roi-field { margin-bottom:14px; }
+    .roi-label { display:flex; justify-content:space-between; font-size:.75rem; font-weight:600; color:var(--text); margin-bottom:6px; }
+    .roi-label-value { color:var(--primary); font-weight:700; }
+    .roi-slider { -webkit-appearance:none; appearance:none; width:100%; height:8px; border-radius:4px; background:var(--border); outline:none; }
+    .roi-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--ia-purple)); cursor:pointer; box-shadow:0 2px 8px rgba(24,119,242,.3); }
+    .roi-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--ia-purple)); cursor:pointer; border:none; }
+    .roi-select { width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px; font-family:'Inter',sans-serif; font-size:.8rem; background:#fff; }
+    .roi-toggle { display:flex; gap:0; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; background:var(--bg); }
+    .roi-toggle-btn { flex:1; padding:8px 10px; border:none; background:transparent; font-family:'Inter',sans-serif; font-size:.75rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all .3s; display:flex; align-items:center; justify-content:center; gap:5px; }
+    .roi-toggle-btn:not(:last-child) { border-right:1px solid var(--border); }
+    .roi-toggle-btn.active { background:linear-gradient(135deg,var(--primary),var(--ia-purple)); color:#fff; }
+
+    /* Result panel */
+    .roi-result { background:linear-gradient(135deg,#0a1628,#1a1a3e 50%,#2d1b4e); border-radius:var(--radius-lg); padding:20px; color:#fff; position:relative; overflow:hidden; }
+    .roi-result::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 20% 80%,rgba(24,119,242,.15),transparent 50%),radial-gradient(circle at 80% 20%,rgba(124,77,255,.15),transparent 50%); }
+    .roi-result-inner { position:relative; z-index:2; }
+    .roi-result-title { font-size:.85rem; font-weight:700; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+    .roi-result-title i[data-lucide] { width:16px; height:16px; color:var(--ia-purple-light); }
+    .roi-loss-block { background:rgba(198,40,40,.1); border:1px solid rgba(198,40,40,.2); border-radius:8px; padding:10px 14px; margin-bottom:10px; }
+    .roi-loss-title { font-size:.65rem; font-weight:700; color:#EF5350; text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+    .roi-loss-title i[data-lucide] { width:13px; height:13px; }
+    .roi-loss-row { display:flex; justify-content:space-between; align-items:center; padding:2px 0; }
+    .roi-loss-label { font-size:.7rem; color:rgba(255,255,255,.5); }
+    .roi-loss-val { font-size:.78rem; font-weight:700; color:#EF5350; }
+    .roi-metric-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+    .roi-metric-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:8px; padding:10px; text-align:center; }
+    .roi-metric-card.highlight { background:rgba(46,125,50,.06); border-color:rgba(46,125,50,.12); }
+    .roi-metric-card.highlight-gold { background:rgba(249,168,37,.06); border-color:rgba(249,168,37,.12); }
+    .roi-metric-val { font-size:1.1rem; font-weight:800; }
+    .roi-metric-val.blue { color:var(--primary-light); }
+    .roi-metric-val.white { color:#fff; }
+    .roi-metric-val.green { color:#4CAF50; }
+    .roi-metric-val.gold { color:#F9A825; }
+    .roi-metric-lbl { font-size:.6rem; color:rgba(255,255,255,.45); margin-top:2px; }
+    .roi-annual { text-align:center; margin-top:8px; padding:10px; background:rgba(46,125,50,.08); border:1px solid rgba(46,125,50,.15); border-radius:8px; }
+    .roi-annual-val { font-size:1.2rem; font-weight:900; color:#4CAF50; }
+    .roi-annual-lbl { font-size:.6rem; color:rgba(255,255,255,.5); margin-top:1px; }
+    .roi-divider { border:none; border-top:1px solid rgba(255,255,255,.08); margin:10px 0; }
+    .roi-scenarios { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:6px; }
+    .roi-scenario { text-align:center; padding:8px; border-radius:8px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); }
+    .roi-scenario.active { background:rgba(24,119,242,.1); border-color:rgba(24,119,242,.25); }
+    .roi-scenario-label { font-size:.6rem; color:rgba(255,255,255,.4); margin-bottom:2px; }
+    .roi-scenario-val { font-size:1.2rem; font-weight:900; }
+    .roi-scenario-val.conservative { color:rgba(255,255,255,.5); }
+    .roi-scenario-val.probable { color:var(--primary-light); }
+    .roi-scenario-val.potential { color:#4CAF50; }
+    .roi-method { font-size:.58rem; color:rgba(255,255,255,.3); margin-top:10px; padding:8px 10px; background:rgba(255,255,255,.03); border-radius:6px; line-height:1.5; }
+    .roi-method strong { color:rgba(255,255,255,.45); }
+
+    /* CTA */
+    .prop-cta { margin:36px 0; text-align:center; background:var(--bg); border-radius:var(--radius-lg); padding:32px; }
+    .prop-cta h3 { font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+    .prop-cta p { font-size:.85rem; color:var(--muted); margin-bottom:20px; }
+    .prop-cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+    .btn-prop { display:inline-flex; align-items:center; gap:8px; padding:14px 28px; border-radius:var(--radius-sm); font-family:'Inter',sans-serif; font-size:.9rem; font-weight:600; text-decoration:none; cursor:pointer; transition:all .2s; border:none; }
+    .btn-prop-primary { background:linear-gradient(135deg,var(--primary),var(--ia-purple)); color:#fff; }
+    .btn-prop-primary:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(24,119,242,.3); }
+    .btn-prop-outline { background:#fff; color:var(--primary); border:2px solid var(--primary); }
+    .btn-prop-outline:hover { background:rgba(24,119,242,.04); }
+
+    /* Footer */
+    .prop-footer { padding:20px 0; border-top:1px solid var(--border); text-align:center; }
+    .prop-footer p { font-size:.7rem; color:var(--muted); }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      .roi-grid { grid-template-columns:1fr; }
+      .prop-plan-details { grid-template-columns:1fr; gap:8px; }
+      .prop-plan-features { grid-template-columns:1fr; }
+      .prop-hero h1 { font-size:1.4rem; }
+      .prop-cta-btns { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="prop-header">
+    <div class="container">
+      <div class="prop-header-inner">
+        <a href="index.html"><img src="logo-leadflow.png" alt="LeadFlow" /></a>
+        <span class="prop-header-badge">Proposta personalizada</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="prop-hero">
+    <div class="container">
+      <p class="prop-hero-greeting" id="heroGreeting">Preparamos uma simulacao para sua operacao</p>
+      <h1>Veja o impacto do <span class="text-gradient">LeadFlow</span><br/>na sua imobiliaria</h1>
+      <p>Simulacao personalizada baseada no tamanho da sua equipe e volume de leads. Ajuste os valores e veja o retorno estimado em tempo real.</p>
+    </div>
+  </section>
+
+  <!-- PLAN RECOMMENDATION -->
+  <section>
+    <div class="container">
+      <div class="prop-plan" id="propPlan">
+        <div class="prop-plan-inner">
+          <div class="prop-plan-label">Plano recomendado para sua operacao</div>
+          <div class="prop-plan-name" id="planName">Growth</div>
+          <div class="prop-plan-price" id="planPrice">R$ 497 <span>/mes</span></div>
+
+          <div class="prop-plan-details">
+            <div class="prop-plan-detail">
+              <div class="prop-plan-detail-val" id="planLeads">200</div>
+              <div class="prop-plan-detail-lbl">leads inclusos/mes</div>
+            </div>
+            <div class="prop-plan-detail">
+              <div class="prop-plan-detail-val" id="planCorretores">5</div>
+              <div class="prop-plan-detail-lbl">corretores</div>
+            </div>
+            <div class="prop-plan-detail">
+              <div class="prop-plan-detail-val" id="planExcesso">R$ 2,00</div>
+              <div class="prop-plan-detail-lbl">por lead excedente</div>
+            </div>
+          </div>
+
+          <div class="prop-plan-features" id="planFeatures">
+            <!-- populated by JS -->
+          </div>
+
+          <div class="prop-plan-excess" id="planExcessNote">
+            O sistema nunca trava. Leads alem da franquia sao cobrados por unidade na fatura mensal.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROI SIMULATOR -->
+  <section class="prop-roi">
+    <div class="container">
+      <h2>Simulador de impacto <span class="text-gradient">personalizado</span></h2>
+      <p class="prop-roi-sub">Ajuste os valores para refletir sua realidade. Os resultados atualizam em tempo real.</p>
+
+      <div class="roi-grid">
+        <div class="roi-form">
+          <div class="roi-form-title"><i data-lucide="sliders-horizontal"></i> Sua operacao</div>
+
+          <div class="roi-field">
+            <div class="roi-label">Tipo de operacao</div>
+            <div class="roi-toggle">
+              <button type="button" class="roi-toggle-btn active" data-mode="venda" onclick="setMode('venda')"><i data-lucide="home" style="width:14px;height:14px;"></i> Vendas</button>
+              <button type="button" class="roi-toggle-btn" data-mode="aluguel" onclick="setMode('aluguel')"><i data-lucide="key-round" style="width:14px;height:14px;"></i> Alugueis</button>
+              <button type="button" class="roi-toggle-btn" data-mode="ambos" onclick="setMode('ambos')"><i data-lucide="layers" style="width:14px;height:14px;"></i> Ambos</button>
+            </div>
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label">Leads recebidos por mes <span class="roi-label-value" id="lblLeads">80</span></div>
+            <input type="range" class="roi-slider" id="sliderLeads" min="20" max="500" value="80" step="10" oninput="calcROI()">
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label">Corretores na equipe <span class="roi-label-value" id="lblCorretores">3</span></div>
+            <input type="range" class="roi-slider" id="sliderCorretores" min="1" max="50" value="3" step="1" oninput="calcROI()">
+          </div>
+
+          <div id="fieldsVenda">
+            <div class="roi-field">
+              <div class="roi-label">Ticket medio do imovel <span class="roi-label-value" id="lblTicket">R$ 400.000</span></div>
+              <input type="range" class="roi-slider" id="sliderTicket" min="100000" max="2000000" value="400000" step="50000" oninput="calcROI()">
+            </div>
+            <div class="roi-field">
+              <div class="roi-label">Comissao liquida do corretor <span class="roi-label-value" id="lblComissao">2,5%</span></div>
+              <input type="range" class="roi-slider" id="sliderComissao" min="1" max="6" value="2.5" step="0.5" oninput="calcROI()">
+            </div>
+          </div>
+
+          <div id="fieldsAluguel" style="display:none;">
+            <div class="roi-field">
+              <div class="roi-label">Aluguel medio mensal <span class="roi-label-value" id="lblAluguel">R$ 2.000</span></div>
+              <input type="range" class="roi-slider" id="sliderAluguel" min="500" max="15000" value="2000" step="250" oninput="calcROI()">
+            </div>
+            <div class="roi-field">
+              <div class="roi-label">Taxa de administracao <span class="roi-label-value" id="lblTaxaAdm">10%</span></div>
+              <input type="range" class="roi-slider" id="sliderTaxaAdm" min="5" max="15" value="10" step="1" oninput="calcROI()">
+            </div>
+            <div class="roi-field">
+              <div class="roi-label">Permanencia media do inquilino <span class="roi-label-value" id="lblPermanencia">24 meses</span></div>
+              <input type="range" class="roi-slider" id="sliderPermanencia" min="6" max="36" value="24" step="6" oninput="calcROI()">
+            </div>
+          </div>
+
+          <div id="fieldsMix" style="display:none;">
+            <div class="roi-field">
+              <div class="roi-label">Proporcao de vendas <span class="roi-label-value" id="lblMix">50% vendas / 50% alugueis</span></div>
+              <input type="range" class="roi-slider" id="sliderMix" min="10" max="90" value="50" step="10" oninput="calcROI()">
+            </div>
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label">Tempo medio de resposta atual</div>
+            <select class="roi-select" id="selectTempo" onchange="calcROI()">
+              <option value="5">Menos de 5 minutos</option>
+              <option value="15" selected>5 a 15 minutos</option>
+              <option value="30">15 a 30 minutos</option>
+              <option value="60">30 min a 1 hora</option>
+              <option value="120">Mais de 1 hora</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="roi-result">
+          <div class="roi-result-inner">
+            <div class="roi-loss-block">
+              <div class="roi-loss-title"><i data-lucide="alert-triangle"></i> O que voce esta deixando na mesa</div>
+              <div class="roi-loss-row"><span class="roi-loss-label">Leads que esfriam por demora</span><span class="roi-loss-val" id="roiLeadsPerdidos">~16/mes</span></div>
+              <div class="roi-loss-row"><span class="roi-loss-label">Vendas perdidas estimadas</span><span class="roi-loss-val" id="roiVendasPerdidas">~0,6/mes</span></div>
+              <div class="roi-loss-row"><span class="roi-loss-label">Comissao que escapa</span><span class="roi-loss-val" id="roiComissaoPerdida">~R$ 6.000/mes</span></div>
+            </div>
+
+            <div class="roi-result-title"><i data-lucide="sparkles"></i> Com LeadFlow ativo</div>
+
+            <div class="roi-metric-row">
+              <div class="roi-metric-card">
+                <div class="roi-metric-val blue" id="roiLeadsRecuperados">+10</div>
+                <div class="roi-metric-lbl">Leads recuperados/mes</div>
+              </div>
+              <div class="roi-metric-card">
+                <div class="roi-metric-val white">&lt; 1 min</div>
+                <div class="roi-metric-lbl">Novo tempo de resposta</div>
+              </div>
+            </div>
+
+            <div class="roi-metric-row">
+              <div class="roi-metric-card highlight">
+                <div class="roi-metric-val green" id="roiVendasExtras">+0,8</div>
+                <div class="roi-metric-lbl" id="roiVendasExtrasLbl">Vendas adicionais/mes</div>
+              </div>
+              <div class="roi-metric-card highlight-gold">
+                <div class="roi-metric-val gold" id="roiComissaoExtra">R$ 8.000</div>
+                <div class="roi-metric-lbl" id="roiComissaoExtraLbl">Comissao extra estimada/mes</div>
+              </div>
+            </div>
+
+            <div class="roi-metric-row" id="roiRecorrenteRow" style="display:none;">
+              <div class="roi-metric-card" style="grid-column:1/-1;background:rgba(46,125,50,.06);border-color:rgba(46,125,50,.12);">
+                <div class="roi-metric-val green" id="roiRecorrente">R$ 0</div>
+                <div class="roi-metric-lbl">Receita recorrente mensal gerada (taxa de adm. acumulada)</div>
+              </div>
+            </div>
+
+            <div class="roi-annual">
+              <div class="roi-annual-val" id="roiAnual">R$ 96.000</div>
+              <div class="roi-annual-lbl" id="roiAnualLbl">Ganho potencial estimado em 12 meses</div>
+            </div>
+
+            <hr class="roi-divider">
+
+            <div class="roi-scenarios">
+              <div class="roi-scenario">
+                <div class="roi-scenario-label">Conservador</div>
+                <div class="roi-scenario-val conservative" id="roiConservador">5x</div>
+              </div>
+              <div class="roi-scenario active">
+                <div class="roi-scenario-label">Provavel</div>
+                <div class="roi-scenario-val probable" id="roiProvavel">12x</div>
+              </div>
+              <div class="roi-scenario">
+                <div class="roi-scenario-label">Potencial</div>
+                <div class="roi-scenario-val potential" id="roiPotencial">28x</div>
+              </div>
+            </div>
+
+            <div class="roi-method">
+              <strong>Importante:</strong> Esta simulacao tem carater exclusivamente ilustrativo e educacional, baseada em medias do mercado imobiliario. Os valores apresentados sao projecoes estimadas e <strong>nao constituem promessa ou garantia de resultados</strong>. O desempenho real depende de fatores como empenho do corretor, qualidade dos leads, processo comercial, regiao de atuacao e condicoes de mercado.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section>
+    <div class="container">
+      <div class="prop-cta">
+        <h3>Gostou da simulacao?</h3>
+        <p>Agende uma demonstracao de 15 minutos e veja o LeadFlow funcionando ao vivo com o seu cenario.</p>
+        <div class="prop-cta-btns">
+          <a href="https://wa.me/5534918088778?text=Vi%20a%20proposta%20personalizada%20e%20quero%20agendar%20uma%20demo!" target="_blank" class="btn-prop btn-prop-primary"><i data-lucide="message-circle" style="width:18px;height:18px;"></i> Agendar demo no WhatsApp</a>
+          <a href="index.html" class="btn-prop btn-prop-outline"><i data-lucide="arrow-left" style="width:18px;height:18px;"></i> Ver site completo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="prop-footer">
+    <div class="container">
+      <p>&copy; 2026 LeadFlow by SaltusCon. Proposta valida por 30 dias. Valores sujeitos a alteracao.</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>
+    lucide.createIcons();
+
+    /* ─── Plan data ──────────────────────────────────────── */
+    const PLANS = {
+      starter:    { name: 'Starter',    price: 197,  leads: 80,  corretores: 1,  excess: 'R$ 2,50', features: ['1 corretor','Bot WhatsApp com IA','Pipeline automatico','Qualificacao por conversa','3 automacoes (follow-up)','Match de imoveis'] },
+      growth:     { name: 'Growth',     price: 497,  leads: 200, corretores: 5,  excess: 'R$ 2,00', features: ['Ate 5 corretores','Tudo do Starter','6 automacoes completas','Dashboard do gerente','Ranking e SLA','Trilha de auditoria','Relatorios automaticos'] },
+      scale:      { name: 'Scale',      price: 997,  leads: 400, corretores: 12, excess: 'R$ 1,50', features: ['Ate 12 corretores','Tudo do Growth','API aberta','Integracoes avancadas','Suporte prioritario','Onboarding dedicado','Multi-filial','Relatorios BI'] },
+      enterprise: { name: 'Enterprise', price: -1,   leads: -1,  corretores: -1, excess: 'Negociado', features: ['Corretores ilimitados','Tudo do Scale','SLA de suporte dedicado','Customizacoes sob medida','Treinamento da equipe','Gerente de conta','Contrato anual flexivel','Deploy dedicado'] },
+    };
+
+    /* ─── Read URL params ──────────────────────────────── */
+    const params = new URLSearchParams(window.location.search);
+    const paramLeads = parseInt(params.get('leads')) || null;
+    const paramCorretores = parseInt(params.get('corretores')) || null;
+    const paramModo = params.get('modo') || 'venda';
+    const paramNome = params.get('nome') || null;
+    const paramTicket = parseInt(params.get('ticket')) || null;
+    const paramAluguel = parseInt(params.get('aluguel')) || null;
+
+    /* ─── Apply params ─────────────────────────────────── */
+    if (paramNome) {
+      document.getElementById('heroGreeting').textContent = paramNome + ', preparamos esta simulacao para sua operacao';
+    }
+    if (paramLeads) document.getElementById('sliderLeads').value = paramLeads;
+    if (paramCorretores) document.getElementById('sliderCorretores').value = paramCorretores;
+    if (paramTicket) document.getElementById('sliderTicket').value = paramTicket;
+    if (paramAluguel) document.getElementById('sliderAluguel').value = paramAluguel;
+
+    /* ─── Recommend plan based on params ───────────────── */
+    function recommendPlan(corretores, leads) {
+      if (corretores > 12 || leads > 400) return 'enterprise';
+      if (corretores > 5 || leads > 200) return 'scale';
+      if (corretores > 1 || leads > 80) return 'growth';
+      return 'starter';
+    }
+
+    function updatePlanCard() {
+      const corretores = parseInt(document.getElementById('sliderCorretores').value);
+      const leads = parseInt(document.getElementById('sliderLeads').value);
+      const planKey = recommendPlan(corretores, leads);
+      const plan = PLANS[planKey];
+
+      document.getElementById('planName').textContent = plan.name;
+      document.getElementById('planPrice').innerHTML = plan.price === -1
+        ? 'Sob consulta'
+        : 'R$ ' + plan.price.toLocaleString('pt-BR') + ' <span>/mes</span>';
+      document.getElementById('planLeads').textContent = plan.leads === -1 ? 'Negociado' : plan.leads;
+      document.getElementById('planCorretores').textContent = plan.corretores === -1 ? 'Ilimitado' : (plan.corretores === 1 ? '1' : 'Ate ' + plan.corretores);
+      document.getElementById('planExcesso').textContent = plan.excess;
+
+      const featHtml = plan.features.map(f => '<div class="prop-plan-feat"><i data-lucide="check"></i> ' + f + '</div>').join('');
+      document.getElementById('planFeatures').innerHTML = featHtml;
+      lucide.createIcons();
+    }
+
+    /* ─── ROI Calculator (same logic as landing) ───────── */
+    let currentMode = 'venda';
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll('.roi-toggle-btn').forEach(b => b.classList.remove('active'));
+      document.querySelector('[data-mode="'+mode+'"]').classList.add('active');
+      document.getElementById('fieldsVenda').style.display = (mode === 'venda' || mode === 'ambos') ? 'block' : 'none';
+      document.getElementById('fieldsAluguel').style.display = (mode === 'aluguel' || mode === 'ambos') ? 'block' : 'none';
+      document.getElementById('fieldsMix').style.display = mode === 'ambos' ? 'block' : 'none';
+      calcROI();
+      lucide.createIcons();
+    }
+
+    function calcROI() {
+      const leads = parseInt(document.getElementById('sliderLeads').value);
+      const corretores = parseInt(document.getElementById('sliderCorretores').value);
+      const tempo = parseInt(document.getElementById('selectTempo').value);
+
+      document.getElementById('lblLeads').textContent = leads;
+      document.getElementById('lblCorretores').textContent = corretores;
+
+      const ticket = parseInt(document.getElementById('sliderTicket').value);
+      const comissaoPct = parseFloat(document.getElementById('sliderComissao').value);
+      const aluguel = parseInt(document.getElementById('sliderAluguel').value);
+      const taxaAdm = parseInt(document.getElementById('sliderTaxaAdm').value);
+      const permanencia = parseInt(document.getElementById('sliderPermanencia').value);
+      const mixVenda = currentMode === 'ambos' ? parseInt(document.getElementById('sliderMix').value) / 100 : 1;
+
+      document.getElementById('lblTicket').textContent = 'R$ ' + ticket.toLocaleString('pt-BR');
+      document.getElementById('lblComissao').textContent = comissaoPct.toFixed(1).replace('.', ',') + '%';
+      document.getElementById('lblAluguel').textContent = 'R$ ' + aluguel.toLocaleString('pt-BR');
+      document.getElementById('lblTaxaAdm').textContent = taxaAdm + '%';
+      document.getElementById('lblPermanencia').textContent = permanencia + ' meses';
+      if (currentMode === 'ambos') {
+        document.getElementById('lblMix').textContent = (mixVenda*100) + '% vendas / ' + ((1-mixVenda)*100) + '% alugueis';
+      }
+
+      const taxaPerda = Math.min(0.5, (tempo - 1) * 0.04);
+      const leadsPerdidos = Math.round(leads * taxaPerda);
+      let comissaoPerdidaTotal = 0, vendasPerdidasTotal = 0;
+      let leadsRecuperados = Math.round(leadsPerdidos * 0.6);
+      let comissaoExtraTotal = 0, vendasExtrasTotal = 0, receitaRecorrente = 0, ganhoAnual = 0;
+
+      if (currentMode === 'venda' || currentMode === 'ambos') {
+        const leadsV = currentMode === 'ambos' ? Math.round(leads * mixVenda) : leads;
+        const perdidosV = currentMode === 'ambos' ? Math.round(leadsPerdidos * mixVenda) : leadsPerdidos;
+        const recuperadosV = Math.round(perdidosV * 0.6);
+        const comissaoUnit = ticket * (comissaoPct / 100);
+        const vendasPerdV = Math.round(perdidosV * 0.025 * 10) / 10;
+        const comissaoPerdV = Math.round(vendasPerdV * comissaoUnit);
+        const vendasSemV = leadsV * 0.025;
+        const vendasComV = (leadsV + recuperadosV) * 0.04;
+        const vendasExtrasV = Math.max(0.1, Math.round((vendasComV - vendasSemV) * 10) / 10);
+        const comissaoExtraV = Math.round(vendasExtrasV * comissaoUnit);
+        vendasPerdidasTotal += vendasPerdV;
+        comissaoPerdidaTotal += comissaoPerdV;
+        vendasExtrasTotal += vendasExtrasV;
+        comissaoExtraTotal += comissaoExtraV;
+        ganhoAnual += comissaoExtraV * 12;
+      }
+
+      if (currentMode === 'aluguel' || currentMode === 'ambos') {
+        const leadsA = currentMode === 'ambos' ? Math.round(leads * (1 - mixVenda)) : leads;
+        const perdidosA = currentMode === 'ambos' ? Math.round(leadsPerdidos * (1 - mixVenda)) : leadsPerdidos;
+        const recuperadosA = Math.round(perdidosA * 0.6);
+        const contratosPerdA = Math.round(perdidosA * 0.05 * 10) / 10;
+        const receitaContrato = aluguel;
+        const receitaAdmMensal = aluguel * (taxaAdm / 100);
+        const ltvContrato = receitaContrato + (receitaAdmMensal * permanencia);
+        const comissaoPerdA = Math.round(contratosPerdA * ltvContrato);
+        const contratosSemA = leadsA * 0.05;
+        const contratosComA = (leadsA + recuperadosA) * 0.08;
+        const contratosExtrasA = Math.max(0.1, Math.round((contratosComA - contratosSemA) * 10) / 10);
+        const comissaoExtraA = Math.round(contratosExtrasA * receitaContrato);
+        const recorrenteNovaA = Math.round(contratosExtrasA * receitaAdmMensal);
+        vendasPerdidasTotal += contratosPerdA;
+        comissaoPerdidaTotal += comissaoPerdA;
+        vendasExtrasTotal += contratosExtrasA;
+        comissaoExtraTotal += comissaoExtraA;
+        receitaRecorrente = recorrenteNovaA;
+        ganhoAnual += (comissaoExtraA * 12) + (recorrenteNovaA * 78);
+      }
+
+      document.getElementById('roiLeadsPerdidos').textContent = '~' + leadsPerdidos + '/mes';
+      document.getElementById('roiVendasPerdidas').textContent = '~' + vendasPerdidasTotal.toFixed(1).replace('.', ',') + '/mes';
+      document.getElementById('roiComissaoPerdida').textContent = '~R$ ' + comissaoPerdidaTotal.toLocaleString('pt-BR') + '/mes';
+      document.getElementById('roiLeadsRecuperados').textContent = '+' + leadsRecuperados;
+
+      const isAluguel = currentMode === 'aluguel';
+      document.getElementById('roiVendasExtrasLbl').textContent = isAluguel ? 'Contratos adicionais/mes' : (currentMode === 'ambos' ? 'Negocios adicionais/mes' : 'Vendas adicionais/mes');
+      document.getElementById('roiComissaoExtraLbl').textContent = isAluguel ? 'Receita extra em taxas/mes' : 'Comissao extra estimada/mes';
+      document.getElementById('roiVendasExtras').textContent = '+' + vendasExtrasTotal.toFixed(1).replace('.', ',');
+      document.getElementById('roiComissaoExtra').textContent = 'R$ ' + comissaoExtraTotal.toLocaleString('pt-BR');
+
+      const recRow = document.getElementById('roiRecorrenteRow');
+      if (currentMode === 'aluguel' || currentMode === 'ambos') {
+        recRow.style.display = 'grid';
+        document.getElementById('roiRecorrente').textContent = '+R$ ' + receitaRecorrente.toLocaleString('pt-BR') + '/mes';
+      } else {
+        recRow.style.display = 'none';
+      }
+
+      document.getElementById('roiAnual').textContent = 'R$ ' + ganhoAnual.toLocaleString('pt-BR');
+      document.getElementById('roiAnualLbl').textContent = (currentMode === 'aluguel' || currentMode === 'ambos')
+        ? 'Ganho potencial em 12 meses (inclui receita recorrente acumulada)'
+        : 'Ganho potencial estimado em 12 meses';
+
+      let custoLF;
+      if (corretores <= 1) custoLF = 197;
+      else if (corretores <= 5) custoLF = 497;
+      else if (corretores <= 12) custoLF = 997;
+      else custoLF = 1997;
+
+      const ganhoMensal = comissaoExtraTotal + receitaRecorrente;
+      const roiCons = Math.max(1, Math.round((ganhoMensal * 0.4) / custoLF));
+      const roiProv = Math.max(2, Math.round((ganhoMensal * 0.7) / custoLF));
+      const roiPot = Math.max(3, Math.round(ganhoMensal / custoLF));
+
+      document.getElementById('roiConservador').textContent = roiCons + 'x';
+      document.getElementById('roiProvavel').textContent = roiProv + 'x';
+      document.getElementById('roiPotencial').textContent = roiPot + 'x';
+
+      // Update plan recommendation when sliders change
+      updatePlanCard();
+    }
+
+    /* ─── Init ─────────────────────────────────────────── */
+    if (paramModo && paramModo !== 'venda') setMode(paramModo);
+    calcROI();
+  </script>
+</body>
+</html>
