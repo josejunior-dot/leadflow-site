@@ -1784,8 +1784,7 @@
     const quickBtns = document.getElementById('waQuick');
     let isOpen = false;
     let sending = false;
-    let sessionId = 'web_' + Math.random().toString(36).substring(2, 15) + '_' + Date.now();
-    let leadId = null;
+    let chatState = { step: 'INTERESSE', interesse: '', nome: '', leadId: null };
 
     function toggleWidget() {
       isOpen = !isOpen;
@@ -1888,33 +1887,35 @@
       showTyping();
 
       try {
-        console.log('[Widget] Sending to:', API_BASE + '/api/public/chat', { sessionId: sessionId, message: msg, leadId: leadId });
         var res = await fetch(API_BASE + '/api/public/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sessionId: sessionId, message: msg, leadId: leadId })
+          body: JSON.stringify({
+            message: msg,
+            step: chatState.step,
+            interesse: chatState.interesse,
+            nome: chatState.nome
+          })
         });
         hideTyping();
-        console.log('[Widget] Response status:', res.status, 'ok:', res.ok);
 
         if (res.ok) {
           var data = await res.json();
-          console.log('[Widget] Data:', data);
-          if (data.leadId) leadId = data.leadId;
+          chatState.step = data.step || chatState.step;
+          chatState.interesse = data.interesse || chatState.interesse;
+          chatState.nome = data.nome || chatState.nome;
+          if (data.leadId) chatState.leadId = data.leadId;
           if (data.replies && data.replies.length > 0) {
             for (var i = 0; i < data.replies.length; i++) {
               addBotMsg(data.replies[i]);
             }
           }
         } else {
-          var errText = await res.text().catch(function() { return 'no body'; });
-          console.error('[Widget] Error response:', res.status, errText);
           addBotMsg('Ops, algo deu errado. Tenta novamente.');
         }
       } catch (err) {
         hideTyping();
-        console.error('[Widget] Fetch error:', err);
-        addBotMsg('Nao consegui conectar ao servidor. Tente novamente.');
+        addBotMsg('Nao consegui conectar. Tente novamente.');
       }
       sending = false;
       input.focus();
