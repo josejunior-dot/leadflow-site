@@ -136,6 +136,51 @@
       .prop-hero h1 { font-size:1.4rem; }
       .prop-cta-btns { flex-direction:column; align-items:center; }
     }
+
+    /* Floating WhatsApp Button */
+    .whatsapp-float{position:fixed;bottom:24px;right:24px;z-index:998;width:60px;height:60px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);cursor:pointer;transition:all .3s cubic-bezier(.16,1,.3,1);text-decoration:none;border:none}
+    .whatsapp-float:hover{transform:scale(1.1) translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.5)}
+    .whatsapp-float.hidden{transform:scale(0);opacity:0;pointer-events:none}
+    .whatsapp-float svg{width:32px;height:32px;fill:#fff}
+    .whatsapp-float-pulse{position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(37,211,102,.4);animation:wa-pulse 2s infinite}
+    @keyframes wa-pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.4);opacity:0}}
+    @media(max-width:480px){.whatsapp-float{bottom:16px;right:16px;width:52px;height:52px}.whatsapp-float svg{width:28px;height:28px}}
+
+    /* WhatsApp Chat Widget */
+    .wa-widget{position:fixed;bottom:96px;right:24px;z-index:999;width:370px;max-height:520px;border-radius:16px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.2);transform:scale(0);transform-origin:bottom right;opacity:0;transition:all .3s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;font-family:'Inter',-apple-system,sans-serif}
+    .wa-widget.open{transform:scale(1);opacity:1}
+    .wa-widget-header{background:#075E54;padding:16px 20px;display:flex;align-items:center;gap:12px;position:relative}
+    .wa-widget-close{position:absolute;top:12px;right:16px;background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:1.2rem;padding:4px;line-height:1;transition:color .2s}
+    .wa-widget-close:hover{color:#fff}
+    .wa-widget-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#1877F2,#7C4DFF);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .wa-widget-avatar img{width:28px;height:28px;object-fit:contain}
+    .wa-widget-info{flex:1}
+    .wa-widget-name{font-size:.95rem;font-weight:700;color:#fff}
+    .wa-widget-status{font-size:.72rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:5px}
+    .wa-widget-status-dot{width:7px;height:7px;border-radius:50%;background:#25D366}
+    .wa-widget-body{flex:1;background:#ECE5DD;padding:16px;display:flex;flex-direction:column;gap:8px;overflow-y:auto;max-height:300px}
+    .wa-widget-msg{max-width:85%;padding:8px 12px;border-radius:8px;font-size:.85rem;line-height:1.5;box-shadow:0 1px 1px rgba(0,0,0,.08);animation:message-in .4s ease both}
+    @keyframes message-in{from{opacity:0;transform:translateY(10px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .wa-widget-msg-bot{background:#fff;color:#303030;border-bottom-left-radius:2px;align-self:flex-start}
+    .wa-widget-msg-time{font-size:.6rem;color:rgba(0,0,0,.35);text-align:right;margin-top:2px}
+    .wa-widget-msg.delay-1{animation-delay:.3s}
+    .wa-widget-typing{align-self:flex-start;background:#fff;padding:10px 16px;border-radius:8px;border-bottom-left-radius:2px;display:none;gap:4px;box-shadow:0 1px 1px rgba(0,0,0,.08)}
+    .wa-widget-typing.visible{display:flex}
+    .wa-widget-typing-dot{width:6px;height:6px;border-radius:50%;background:#90a4ae;animation:typing-bounce .6s infinite}
+    .wa-widget-typing-dot:nth-child(2){animation-delay:.15s}.wa-widget-typing-dot:nth-child(3){animation-delay:.3s}
+    @keyframes typing-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+    .wa-widget-footer{background:#fff;padding:10px 12px;display:flex;gap:8px;align-items:center;border-top:1px solid #e0e0e0}
+    .wa-widget-input{flex:1;border:1px solid #e0e0e0;border-radius:24px;padding:10px 16px;font-family:'Inter',sans-serif;font-size:.85rem;outline:none;transition:border-color .2s;color:#303030}
+    .wa-widget-input:focus{border-color:#25D366}
+    .wa-widget-input::placeholder{color:#999}
+    .wa-widget-send{width:40px;height:40px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+    .wa-widget-send:hover{background:#1fb855;transform:scale(1.05)}
+    .wa-widget-send svg{width:18px;height:18px;fill:#fff;margin-left:2px}
+    .wa-widget-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 12px;background:#ECE5DD}
+    .wa-widget-quick-btn{background:#fff;border:1px solid #d1c4e9;border-radius:50px;padding:6px 14px;font-size:.75rem;font-weight:500;color:#7C4DFF;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+    .wa-widget-quick-btn:hover{background:#7C4DFF;color:#fff;border-color:#7C4DFF}
+    .wa-widget-form{background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #e0e0e0}
+    @media(max-width:480px){.wa-widget{bottom:80px;right:8px;left:8px;width:auto;max-height:70vh}}
   </style>
 </head>
 <body>
@@ -165,21 +210,21 @@
       <div class="prop-plan" id="propPlan">
         <div class="prop-plan-inner">
           <div class="prop-plan-label">Plano recomendado para sua operacao</div>
-          <div class="prop-plan-name" id="planName">Growth</div>
-          <div class="prop-plan-price" id="planPrice">R$ 497 <span>/mes</span></div>
+          <div class="prop-plan-name" id="planName">Unitario</div>
+          <div class="prop-plan-price" id="planPrice">R$ 179 <span>/mes</span></div>
 
           <div class="prop-plan-details">
             <div class="prop-plan-detail">
               <div class="prop-plan-detail-val" id="planLeads">200</div>
-              <div class="prop-plan-detail-lbl">leads inclusos/mes</div>
+              <div class="prop-plan-detail-lbl">creditos de canal/mes</div>
             </div>
             <div class="prop-plan-detail">
-              <div class="prop-plan-detail-val" id="planCorretores">5</div>
-              <div class="prop-plan-detail-lbl">corretores</div>
+              <div class="prop-plan-detail-val" id="planCorretores">1</div>
+              <div class="prop-plan-detail-lbl">usuarios</div>
             </div>
             <div class="prop-plan-detail">
-              <div class="prop-plan-detail-val" id="planExcesso">R$ 2,00</div>
-              <div class="prop-plan-detail-lbl">por lead excedente</div>
+              <div class="prop-plan-detail-val" id="planExcesso">Pacotes a partir de R$ 249</div>
+              <div class="prop-plan-detail-lbl">creditos extras</div>
             </div>
           </div>
 
@@ -188,7 +233,7 @@
           </div>
 
           <div class="prop-plan-excess" id="planExcessNote">
-            O sistema nunca trava. Leads alem da franquia sao cobrados por unidade na fatura mensal.
+            O CRM nunca trava. Leads sao ilimitados. Creditos extras podem ser comprados a qualquer momento em pacotes.
           </div>
         </div>
       </div>
@@ -208,58 +253,58 @@
           <div class="roi-field">
             <div class="roi-label">Tipo de operacao</div>
             <div class="roi-toggle">
-              <button type="button" class="roi-toggle-btn active" data-mode="venda" onclick="setMode('venda')"><i data-lucide="home" style="width:14px;height:14px;"></i> Vendas</button>
-              <button type="button" class="roi-toggle-btn" data-mode="aluguel" onclick="setMode('aluguel')"><i data-lucide="key-round" style="width:14px;height:14px;"></i> Alugueis</button>
-              <button type="button" class="roi-toggle-btn" data-mode="ambos" onclick="setMode('ambos')"><i data-lucide="layers" style="width:14px;height:14px;"></i> Ambos</button>
+              <button type="button" class="roi-toggle-btn active" data-mode="venda"><i data-lucide="home" style="width:14px;height:14px;"></i> Vendas</button>
+              <button type="button" class="roi-toggle-btn" data-mode="aluguel"><i data-lucide="key-round" style="width:14px;height:14px;"></i> Alugueis</button>
+              <button type="button" class="roi-toggle-btn" data-mode="ambos"><i data-lucide="layers" style="width:14px;height:14px;"></i> Ambos</button>
             </div>
           </div>
 
           <div class="roi-field">
             <div class="roi-label">Leads recebidos por mes <span class="roi-label-value" id="lblLeads">80</span></div>
-            <input type="range" class="roi-slider" id="sliderLeads" min="20" max="500" value="80" step="10" oninput="calcROI()">
+            <input type="range" class="roi-slider" id="sliderLeads" min="20" max="500" value="80" step="10">
           </div>
 
           <div class="roi-field">
             <div class="roi-label">Corretores na equipe <span class="roi-label-value" id="lblCorretores">3</span></div>
-            <input type="range" class="roi-slider" id="sliderCorretores" min="1" max="50" value="3" step="1" oninput="calcROI()">
+            <input type="range" class="roi-slider" id="sliderCorretores" min="1" max="50" value="3" step="1">
           </div>
 
           <div id="fieldsVenda">
             <div class="roi-field">
               <div class="roi-label">Ticket medio do imovel <span class="roi-label-value" id="lblTicket">R$ 400.000</span></div>
-              <input type="range" class="roi-slider" id="sliderTicket" min="100000" max="2000000" value="400000" step="50000" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderTicket" min="100000" max="2000000" value="400000" step="50000">
             </div>
             <div class="roi-field">
               <div class="roi-label">Comissao liquida do corretor <span class="roi-label-value" id="lblComissao">2,5%</span></div>
-              <input type="range" class="roi-slider" id="sliderComissao" min="1" max="6" value="2.5" step="0.5" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderComissao" min="1" max="6" value="2.5" step="0.5">
             </div>
           </div>
 
           <div id="fieldsAluguel" style="display:none;">
             <div class="roi-field">
               <div class="roi-label">Aluguel medio mensal <span class="roi-label-value" id="lblAluguel">R$ 2.000</span></div>
-              <input type="range" class="roi-slider" id="sliderAluguel" min="500" max="15000" value="2000" step="250" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderAluguel" min="500" max="15000" value="2000" step="250">
             </div>
             <div class="roi-field">
               <div class="roi-label">Taxa de administracao <span class="roi-label-value" id="lblTaxaAdm">10%</span></div>
-              <input type="range" class="roi-slider" id="sliderTaxaAdm" min="5" max="15" value="10" step="1" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderTaxaAdm" min="5" max="15" value="10" step="1">
             </div>
             <div class="roi-field">
               <div class="roi-label">Permanencia media do inquilino <span class="roi-label-value" id="lblPermanencia">24 meses</span></div>
-              <input type="range" class="roi-slider" id="sliderPermanencia" min="6" max="36" value="24" step="6" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderPermanencia" min="6" max="36" value="24" step="6">
             </div>
           </div>
 
           <div id="fieldsMix" style="display:none;">
             <div class="roi-field">
               <div class="roi-label">Proporcao de vendas <span class="roi-label-value" id="lblMix">50% vendas / 50% alugueis</span></div>
-              <input type="range" class="roi-slider" id="sliderMix" min="10" max="90" value="50" step="10" oninput="calcROI()">
+              <input type="range" class="roi-slider" id="sliderMix" min="10" max="90" value="50" step="10">
             </div>
           </div>
 
           <div class="roi-field">
             <div class="roi-label">Tempo medio de resposta atual</div>
-            <select class="roi-select" id="selectTempo" onchange="calcROI()">
+            <select class="roi-select" id="selectTempo">
               <option value="5">Menos de 5 minutos</option>
               <option value="15" selected>5 a 15 minutos</option>
               <option value="30">15 a 30 minutos</option>
@@ -357,30 +402,44 @@
   <!-- FOOTER -->
   <footer class="prop-footer">
     <div class="container">
-      <p>&copy; 2026 LeadFlow by SaltusCon. Proposta valida por 30 dias. Valores sujeitos a alteracao.</p>
+      <p>&copy; 2026 LeadFlow by SaltusCon. Proposta valida por 30 dias. 14 dias gratis, sem cartao. Valores sujeitos a alteracao.</p>
     </div>
   </footer>
 
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js" integrity="sha384-ieG+IKD0d/ZPXyCBTMVAbqsQdns8QGJR/e26WMw7M4fkaI/rHcS/YIoi+ah9WGge" crossorigin="anonymous"></script>
   <script>
     lucide.createIcons();
 
     /* ─── Plan data ──────────────────────────────────────── */
     const PLANS = {
-      starter:    { name: 'Starter',    price: 197,  leads: 80,  corretores: 1,  excess: 'R$ 2,50', features: ['1 corretor','Bot WhatsApp com IA','Pipeline automatico','Qualificacao por conversa','3 automacoes (follow-up)','Match de imoveis'] },
-      growth:     { name: 'Growth',     price: 497,  leads: 200, corretores: 5,  excess: 'R$ 2,00', features: ['Ate 5 corretores','Tudo do Starter','6 automacoes completas','Dashboard do gerente','Ranking e SLA','Trilha de auditoria','Relatorios automaticos'] },
-      scale:      { name: 'Scale',      price: 997,  leads: 400, corretores: 12, excess: 'R$ 1,50', features: ['Ate 12 corretores','Tudo do Growth','API aberta','Integracoes avancadas','Suporte prioritario','Onboarding dedicado','Multi-filial','Relatorios BI'] },
-      enterprise: { name: 'Enterprise', price: -1,   leads: -1,  corretores: -1, excess: 'Negociado', features: ['Corretores ilimitados','Tudo do Scale','SLA de suporte dedicado','Customizacoes sob medida','Treinamento da equipe','Gerente de conta','Contrato anual flexivel','Deploy dedicado'] },
+      unitario:    { name: 'Unitario',    price: 179,   usuarios: 1,  creditos: 200,   excess: 'Pacotes a partir de R$ 249', features: ['1 usuario','Leads ilimitados','LeadBot WhatsApp com IA','Pipeline visual automatico','Score inteligente (IA)','Webhook portais'] },
+      starter:     { name: 'Starter',     price: 349,   usuarios: 2,  creditos: 500,   excess: 'Pacotes a partir de R$ 249', features: ['2 usuarios','Tudo do Unitario','Campanhas limitadas','Automacoes intermediarias','Meta Lead Ads','Alertas automaticos'] },
+      growth:      { name: 'Growth',      price: 697,   usuarios: 5,  creditos: 1200,  excess: 'Pacotes a partir de R$ 249', features: ['5 usuarios','Tudo do Starter','Todas as automacoes','Multiplas filas','Roteamento avancado','Integracoes ERP','Gamificacao','Relatorios com IA'] },
+      performance: { name: 'Performance', price: 1490,  usuarios: 10, creditos: 2500,  excess: 'Pacotes a partir de R$ 249', features: ['10 usuarios','Tudo do Growth','Pos-pago e pacotes extras','Suporte prioritario','Multi-filial','Relatorios BI avancados','SLA de atendimento','Trilha de auditoria'] },
+      enterprise:  { name: 'Enterprise',  price: -1,    usuarios: -1, creditos: -1,    excess: 'Pay-as-you-go negociado', features: ['Usuarios ilimitados','Tudo do Performance','API de acesso','White label','Customizacoes sob medida','Treinamento da equipe','Gerente de conta dedicado','Deploy dedicado'] },
     };
 
     /* ─── Read URL params ──────────────────────────────── */
     const params = new URLSearchParams(window.location.search);
-    const paramLeads = parseInt(params.get('leads')) || null;
-    const paramCorretores = parseInt(params.get('corretores')) || null;
-    const paramModo = params.get('modo') || 'venda';
-    const paramNome = params.get('nome') || null;
-    const paramTicket = parseInt(params.get('ticket')) || null;
-    const paramAluguel = parseInt(params.get('aluguel')) || null;
+
+    function parseIntParam(name, min, max) {
+      const raw = params.get(name);
+      if (!raw) return null;
+      const val = parseInt(raw, 10);
+      if (isNaN(val)) return null;
+      if (min !== undefined && val < min) return min;
+      if (max !== undefined && val > max) return max;
+      return val;
+    }
+
+    const MODOS_VALIDOS = ['venda', 'aluguel', 'ambos'];
+    const paramLeads = parseIntParam('leads', 20, 500);
+    const paramCorretores = parseIntParam('corretores', 1, 50);
+    const rawModo = params.get('modo');
+    const paramModo = MODOS_VALIDOS.includes(rawModo) ? rawModo : 'venda';
+    const paramNome = params.get('nome') ? params.get('nome').substring(0, 100) : null;
+    const paramTicket = parseIntParam('ticket', 100000, 2000000);
+    const paramAluguel = parseIntParam('aluguel', 500, 15000);
 
     /* ─── Apply params ─────────────────────────────────── */
     if (paramNome) {
@@ -393,10 +452,11 @@
 
     /* ─── Recommend plan based on params ───────────────── */
     function recommendPlan(corretores, leads) {
-      if (corretores > 12 || leads > 400) return 'enterprise';
-      if (corretores > 5 || leads > 200) return 'scale';
-      if (corretores > 1 || leads > 80) return 'growth';
-      return 'starter';
+      if (corretores > 10) return 'enterprise';
+      if (corretores > 5) return 'performance';
+      if (corretores > 2) return 'growth';
+      if (corretores > 1) return 'starter';
+      return 'unitario';
     }
 
     function updatePlanCard() {
@@ -406,19 +466,54 @@
       const plan = PLANS[planKey];
 
       document.getElementById('planName').textContent = plan.name;
-      document.getElementById('planPrice').innerHTML = plan.price === -1
-        ? 'Sob consulta'
-        : 'R$ ' + plan.price.toLocaleString('pt-BR') + ' <span>/mes</span>';
-      document.getElementById('planLeads').textContent = plan.leads === -1 ? 'Negociado' : plan.leads;
-      document.getElementById('planCorretores').textContent = plan.corretores === -1 ? 'Ilimitado' : (plan.corretores === 1 ? '1' : 'Ate ' + plan.corretores);
+
+      const priceEl = document.getElementById('planPrice');
+      if (plan.price === -1) {
+        priceEl.textContent = 'Sob consulta';
+      } else {
+        priceEl.textContent = '';
+        priceEl.appendChild(document.createTextNode('R$ ' + plan.price.toLocaleString('pt-BR') + ' '));
+        const span = document.createElement('span');
+        span.textContent = '/mes';
+        priceEl.appendChild(span);
+      }
+
+      document.getElementById('planLeads').textContent = plan.creditos === -1 ? 'Sob medida' : plan.creditos.toLocaleString('pt-BR');
+      document.getElementById('planCorretores').textContent = plan.usuarios === -1 ? 'Ilimitado' : (plan.usuarios === 1 ? '1' : 'Ate ' + plan.usuarios);
       document.getElementById('planExcesso').textContent = plan.excess;
 
-      const featHtml = plan.features.map(f => '<div class="prop-plan-feat"><i data-lucide="check"></i> ' + f + '</div>').join('');
-      document.getElementById('planFeatures').innerHTML = featHtml;
+      const featContainer = document.getElementById('planFeatures');
+      featContainer.textContent = '';
+      plan.features.forEach(f => {
+        const div = document.createElement('div');
+        div.className = 'prop-plan-feat';
+        const icon = document.createElement('i');
+        icon.setAttribute('data-lucide', 'check');
+        div.appendChild(icon);
+        div.appendChild(document.createTextNode(' ' + f));
+        featContainer.appendChild(div);
+      });
       lucide.createIcons();
     }
 
-    /* ─── ROI Calculator (same logic as landing) ───────── */
+    /* ─── ROI Calculator Constants ──────────────────────── */
+    // Taxa de perda: cada minuto acima de 1 min adiciona 4% de chance de perda, ate maximo 50%
+    const TAXA_PERDA_POR_MINUTO = 0.04;
+    const TAXA_PERDA_MAX = 0.5;
+    // Taxa de recuperacao com LeadFlow: 60% dos leads perdidos sao recuperados
+    const TAXA_RECUPERACAO = 0.6;
+    // Conversao base (sem LeadFlow): 2.5% vendas, 5% alugueis
+    const CONV_BASE_VENDA = 0.025;
+    const CONV_BASE_ALUGUEL = 0.05;
+    // Conversao com LeadFlow: 4% vendas, 8% alugueis
+    const CONV_LF_VENDA = 0.04;
+    const CONV_LF_ALUGUEL = 0.08;
+    // Cenarios de ROI: conservador 40%, provavel 70%, potencial 100%
+    const ROI_CONSERVADOR_FATOR = 0.4;
+    const ROI_PROVAVEL_FATOR = 0.7;
+    // Soma de 1 a 12 meses para receita recorrente acumulada
+    const SOMA_MESES_12 = 78;
+
     let currentMode = 'venda';
 
     function setMode(mode) {
@@ -456,21 +551,21 @@
         document.getElementById('lblMix').textContent = (mixVenda*100) + '% vendas / ' + ((1-mixVenda)*100) + '% alugueis';
       }
 
-      const taxaPerda = Math.min(0.5, (tempo - 1) * 0.04);
+      const taxaPerda = Math.min(TAXA_PERDA_MAX, (tempo - 1) * TAXA_PERDA_POR_MINUTO);
       const leadsPerdidos = Math.round(leads * taxaPerda);
       let comissaoPerdidaTotal = 0, vendasPerdidasTotal = 0;
-      let leadsRecuperados = Math.round(leadsPerdidos * 0.6);
+      let leadsRecuperados = Math.round(leadsPerdidos * TAXA_RECUPERACAO);
       let comissaoExtraTotal = 0, vendasExtrasTotal = 0, receitaRecorrente = 0, ganhoAnual = 0;
 
       if (currentMode === 'venda' || currentMode === 'ambos') {
         const leadsV = currentMode === 'ambos' ? Math.round(leads * mixVenda) : leads;
         const perdidosV = currentMode === 'ambos' ? Math.round(leadsPerdidos * mixVenda) : leadsPerdidos;
-        const recuperadosV = Math.round(perdidosV * 0.6);
+        const recuperadosV = Math.round(perdidosV * TAXA_RECUPERACAO);
         const comissaoUnit = ticket * (comissaoPct / 100);
-        const vendasPerdV = Math.round(perdidosV * 0.025 * 10) / 10;
+        const vendasPerdV = Math.round(perdidosV * CONV_BASE_VENDA * 10) / 10;
         const comissaoPerdV = Math.round(vendasPerdV * comissaoUnit);
-        const vendasSemV = leadsV * 0.025;
-        const vendasComV = (leadsV + recuperadosV) * 0.04;
+        const vendasSemV = leadsV * CONV_BASE_VENDA;
+        const vendasComV = (leadsV + recuperadosV) * CONV_LF_VENDA;
         const vendasExtrasV = Math.max(0.1, Math.round((vendasComV - vendasSemV) * 10) / 10);
         const comissaoExtraV = Math.round(vendasExtrasV * comissaoUnit);
         vendasPerdidasTotal += vendasPerdV;
@@ -483,14 +578,14 @@
       if (currentMode === 'aluguel' || currentMode === 'ambos') {
         const leadsA = currentMode === 'ambos' ? Math.round(leads * (1 - mixVenda)) : leads;
         const perdidosA = currentMode === 'ambos' ? Math.round(leadsPerdidos * (1 - mixVenda)) : leadsPerdidos;
-        const recuperadosA = Math.round(perdidosA * 0.6);
-        const contratosPerdA = Math.round(perdidosA * 0.05 * 10) / 10;
+        const recuperadosA = Math.round(perdidosA * TAXA_RECUPERACAO);
+        const contratosPerdA = Math.round(perdidosA * CONV_BASE_ALUGUEL * 10) / 10;
         const receitaContrato = aluguel;
         const receitaAdmMensal = aluguel * (taxaAdm / 100);
         const ltvContrato = receitaContrato + (receitaAdmMensal * permanencia);
         const comissaoPerdA = Math.round(contratosPerdA * ltvContrato);
-        const contratosSemA = leadsA * 0.05;
-        const contratosComA = (leadsA + recuperadosA) * 0.08;
+        const contratosSemA = leadsA * CONV_BASE_ALUGUEL;
+        const contratosComA = (leadsA + recuperadosA) * CONV_LF_ALUGUEL;
         const contratosExtrasA = Math.max(0.1, Math.round((contratosComA - contratosSemA) * 10) / 10);
         const comissaoExtraA = Math.round(contratosExtrasA * receitaContrato);
         const recorrenteNovaA = Math.round(contratosExtrasA * receitaAdmMensal);
@@ -499,7 +594,7 @@
         vendasExtrasTotal += contratosExtrasA;
         comissaoExtraTotal += comissaoExtraA;
         receitaRecorrente = recorrenteNovaA;
-        ganhoAnual += (comissaoExtraA * 12) + (recorrenteNovaA * 78);
+        ganhoAnual += (comissaoExtraA * 12) + (recorrenteNovaA * SOMA_MESES_12);
       }
 
       document.getElementById('roiLeadsPerdidos').textContent = '~' + leadsPerdidos + '/mes';
@@ -526,28 +621,222 @@
         ? 'Ganho potencial em 12 meses (inclui receita recorrente acumulada)'
         : 'Ganho potencial estimado em 12 meses';
 
+      // Custo do LeadFlow baseado no numero de usuarios/corretores
       let custoLF;
-      if (corretores <= 1) custoLF = 197;
-      else if (corretores <= 5) custoLF = 497;
-      else if (corretores <= 12) custoLF = 997;
-      else custoLF = 1997;
+      if (corretores <= 1) custoLF = 179;
+      else if (corretores <= 2) custoLF = 349;
+      else if (corretores <= 5) custoLF = 697;
+      else if (corretores <= 10) custoLF = 1490;
+      else custoLF = 2500; // Enterprise estimado
 
       const ganhoMensal = comissaoExtraTotal + receitaRecorrente;
-      const roiCons = Math.max(1, Math.round((ganhoMensal * 0.4) / custoLF));
-      const roiProv = Math.max(2, Math.round((ganhoMensal * 0.7) / custoLF));
+      const roiCons = Math.max(1, Math.round((ganhoMensal * ROI_CONSERVADOR_FATOR) / custoLF));
+      const roiProv = Math.max(2, Math.round((ganhoMensal * ROI_PROVAVEL_FATOR) / custoLF));
       const roiPot = Math.max(3, Math.round(ganhoMensal / custoLF));
 
       document.getElementById('roiConservador').textContent = roiCons + 'x';
       document.getElementById('roiProvavel').textContent = roiProv + 'x';
       document.getElementById('roiPotencial').textContent = roiPot + 'x';
 
-      // Update plan recommendation when sliders change
       updatePlanCard();
     }
+
+    /* ─── Event Listeners ───────────────────────────────── */
+    document.querySelectorAll('.roi-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => setMode(btn.dataset.mode));
+    });
+
+    document.querySelectorAll('.roi-slider').forEach(slider => {
+      slider.addEventListener('input', calcROI);
+    });
+
+    const selectTempo = document.getElementById('selectTempo');
+    if (selectTempo) selectTempo.addEventListener('change', calcROI);
 
     /* ─── Init ─────────────────────────────────────────── */
     if (paramModo && paramModo !== 'venda') setMode(paramModo);
     calcROI();
+  </script>
+
+  <!-- WhatsApp Chat Widget -->
+  <div class="wa-widget" id="waWidget">
+    <div class="wa-widget-header">
+      <button class="wa-widget-close" id="waClose" aria-label="Fechar chat">&times;</button>
+      <div class="wa-widget-avatar"><img src="logo-leadflow-white.png" alt="LF" /></div>
+      <div class="wa-widget-info">
+        <div class="wa-widget-name">LeadFlow Bot</div>
+        <div class="wa-widget-status"><span class="wa-widget-status-dot"></span> Online agora</div>
+      </div>
+    </div>
+    <div class="wa-widget-body" id="waBody">
+      <div class="wa-widget-msg wa-widget-msg-bot">
+        Ola! Vi que voce esta analisando a proposta. Quer experimentar o bot na pratica?
+        <div class="wa-widget-msg-time">agora</div>
+      </div>
+      <div class="wa-widget-msg wa-widget-msg-bot delay-1">
+        Preenche seu nome e WhatsApp abaixo que nosso bot inicia uma conversa com voce automaticamente!
+        <div class="wa-widget-msg-time">agora</div>
+      </div>
+      <div class="wa-widget-typing" id="waTyping">
+        <span class="wa-widget-typing-dot"></span>
+        <span class="wa-widget-typing-dot"></span>
+        <span class="wa-widget-typing-dot"></span>
+      </div>
+    </div>
+    <div class="wa-widget-quick" id="waQuick">
+      <button class="wa-widget-quick-btn" data-interest="demo">Agendar demo</button>
+      <button class="wa-widget-quick-btn" data-interest="duvidas">Tirar duvidas</button>
+      <button class="wa-widget-quick-btn" data-interest="teste">Teste gratis</button>
+    </div>
+    <div class="wa-widget-form" id="waForm">
+      <input type="text" class="wa-widget-input" id="waName" placeholder="Seu nome" autocomplete="given-name" />
+      <div style="display:flex;gap:8px;">
+        <input type="tel" class="wa-widget-input" id="waPhone" placeholder="WhatsApp com DDD" autocomplete="tel" style="flex:1;" />
+        <button class="wa-widget-send" id="waSend" aria-label="Iniciar conversa">
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating WhatsApp Button -->
+  <button class="whatsapp-float" id="waFloatBtn" aria-label="Conversar no WhatsApp">
+    <span class="whatsapp-float-pulse"></span>
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 2.667A13.26 13.26 0 0 0 2.667 15.89a13.15 13.15 0 0 0 1.795 6.634L2.667 29.333l7.028-1.842A13.26 13.26 0 0 0 16.004 29.2 13.26 13.26 0 0 0 29.333 15.89 13.26 13.26 0 0 0 16.004 2.667zm0 24.27a11 11 0 0 1-5.601-1.532l-.402-.238-4.168 1.093 1.113-4.065-.263-.417a10.89 10.89 0 0 1-1.683-5.889 11 11 0 0 1 11-10.89 11 11 0 0 1 11 10.89 11 11 0 0 1-10.997 11.047zm6.03-8.157c-.33-.166-1.956-.965-2.26-1.076-.303-.11-.524-.166-.744.166s-.854 1.076-1.047 1.297c-.193.22-.386.248-.716.083a9.03 9.03 0 0 1-2.656-1.638 9.97 9.97 0 0 1-1.836-2.29c-.193-.33-.02-.51.145-.674.148-.148.33-.386.496-.58.165-.192.22-.33.33-.55.11-.22.055-.413-.028-.58-.083-.165-.744-1.793-1.02-2.455-.268-.644-.54-.557-.744-.567l-.634-.01a1.21 1.21 0 0 0-.882.414 3.71 3.71 0 0 0-1.157 2.758c0 1.627 1.185 3.2 1.35 3.42.166.22 2.332 3.56 5.65 4.993.79.34 1.406.544 1.886.697.793.252 1.514.216 2.084.131.636-.095 1.956-.8 2.232-1.572.276-.772.276-1.434.193-1.572-.083-.138-.303-.22-.634-.386z"/></svg>
+  </button>
+
+  <script>
+  (function() {
+    var API_BASE = 'https://leadflow-crm.vercel.app';
+    var widget = document.getElementById('waWidget');
+    var floatBtn = document.getElementById('waFloatBtn');
+    var closeBtn = document.getElementById('waClose');
+    var nameInput = document.getElementById('waName');
+    var phoneInput = document.getElementById('waPhone');
+    var sendBtn = document.getElementById('waSend');
+    var chatBody = document.getElementById('waBody');
+    var typing = document.getElementById('waTyping');
+    var quickBtns = document.getElementById('waQuick');
+    var form = document.getElementById('waForm');
+    var isOpen = false;
+    var interest = '';
+    var submitted = false;
+
+    function toggleWidget() {
+      isOpen = !isOpen;
+      widget.classList.toggle('open', isOpen);
+      floatBtn.classList.toggle('hidden', isOpen);
+      if (isOpen) nameInput.focus();
+    }
+
+    function addBotMsg(text) {
+      var div = document.createElement('div');
+      div.className = 'wa-widget-msg wa-widget-msg-bot';
+      div.textContent = text;
+      var time = document.createElement('div');
+      time.className = 'wa-widget-msg-time';
+      time.textContent = 'agora';
+      div.appendChild(time);
+      chatBody.insertBefore(div, typing);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function addUserMsg(text) {
+      var div = document.createElement('div');
+      div.className = 'wa-widget-msg';
+      div.style.cssText = 'background:#DCF8C6;color:#303030;border-bottom-right-radius:2px;align-self:flex-end;';
+      div.textContent = text;
+      var time = document.createElement('div');
+      time.className = 'wa-widget-msg-time';
+      time.textContent = 'agora';
+      div.appendChild(time);
+      chatBody.insertBefore(div, typing);
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showTyping() { typing.classList.add('visible'); chatBody.scrollTop = chatBody.scrollHeight; }
+    function hideTyping() { typing.classList.remove('visible'); }
+
+    function normalizePhone(raw) {
+      var digits = raw.replace(/\D/g, '');
+      if (digits.indexOf('55') === 0 && digits.length >= 12) return digits;
+      if (digits.length === 11) return '55' + digits;
+      if (digits.length === 10) return '55' + digits.substring(0,2) + '9' + digits.substring(2);
+      return digits;
+    }
+
+    function validatePhone(phone) {
+      var digits = phone.replace(/\D/g, '');
+      return digits.length >= 10 && digits.length <= 13;
+    }
+
+    quickBtns.querySelectorAll('.wa-widget-quick-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        interest = this.dataset.interest;
+        addUserMsg(this.textContent);
+        quickBtns.style.display = 'none';
+        showTyping();
+        setTimeout(function() {
+          hideTyping();
+          addBotMsg('Otimo! Preenche seu nome e WhatsApp aqui embaixo que ja inicio uma conversa com voce pelo bot.');
+          nameInput.focus();
+        }, 800);
+      });
+    });
+
+    function submitLead() {
+      if (submitted) return;
+      var name = nameInput.value.trim();
+      var rawPhone = phoneInput.value.trim();
+      if (!name || name.length < 2) { nameInput.style.borderColor = '#EF5350'; nameInput.focus(); return; }
+      if (!validatePhone(rawPhone)) { phoneInput.style.borderColor = '#EF5350'; phoneInput.focus(); return; }
+
+      submitted = true;
+      nameInput.style.borderColor = '';
+      phoneInput.style.borderColor = '';
+      var phone = normalizePhone(rawPhone);
+      var message = interest ? 'Interesse: ' + interest + ' (via proposta)' : 'Contato via proposta personalizada';
+
+      addUserMsg(name + ' - ' + rawPhone);
+      form.style.display = 'none';
+      showTyping();
+
+      fetch(API_BASE + '/api/public/interest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, phone: phone, message: message })
+      }).then(function(res) {
+        hideTyping();
+        if (res.ok) {
+          addBotMsg('Pronto, ' + name + '! Seu cadastro foi registrado no LeadFlow. Nosso bot ja vai iniciar uma conversa com voce pelo WhatsApp no numero informado.');
+          setTimeout(function() {
+            addBotMsg('Fique de olho no seu WhatsApp! A conversa vai comecar em instantes.');
+          }, 1000);
+        } else {
+          addBotMsg('Ops, algo deu errado. Tenta novamente em alguns segundos.');
+          submitted = false;
+          form.style.display = '';
+        }
+      }).catch(function() {
+        hideTyping();
+        addBotMsg('Nao consegui conectar ao servidor. Verifique sua conexao e tente novamente.');
+        submitted = false;
+        form.style.display = '';
+      });
+    }
+
+    floatBtn.addEventListener('click', toggleWidget);
+    closeBtn.addEventListener('click', toggleWidget);
+    sendBtn.addEventListener('click', submitLead);
+    phoneInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); submitLead(); }
+    });
+    nameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); phoneInput.focus(); }
+    });
+    nameInput.addEventListener('input', function() { this.style.borderColor = ''; });
+    phoneInput.addEventListener('input', function() { this.style.borderColor = ''; });
+  })();
   </script>
 </body>
 </html>
