@@ -1727,7 +1727,7 @@
     if (pricingForm) pricingForm.addEventListener('submit', unlockPricing);
   </script>
 
-  <!-- WhatsApp Chat Widget -->
+  <!-- Chat Widget -->
   <div class="wa-widget" id="waWidget">
     <div class="wa-widget-header">
       <button class="wa-widget-close" id="waClose" aria-label="Fechar chat">&times;</button>
@@ -1739,12 +1739,7 @@
     </div>
     <div class="wa-widget-body" id="waBody">
       <div class="wa-widget-msg wa-widget-msg-bot">
-        Ola! Sou o assistente do LeadFlow. Quer conhecer a plataforma na pratica?
-        <div class="wa-widget-msg-time">agora</div>
-      </div>
-      <div class="wa-widget-msg wa-widget-msg-ia delay-1">
-        <div class="wa-ia-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.5 3.4L17 8l-3.5 1.6L12 13l-1.5-3.4L7 8l3.5-1.6z"/><path d="M19 13l.7 1.6L22 16l-2.3.4L19 18l-.7-1.6L16 16l2.3-.4z"/><path d="M5 17l.7 1.6L8 20l-2.3.4L5 22l-.7-1.6L2 20l2.3-.4z"/></svg> IA LeadFlow</div>
-        Me diz seu nome e WhatsApp que nosso bot inicia uma conversa com voce automaticamente, igualzinho como seus leads vao ser atendidos!
+        Ola! Sou o assistente do LeadFlow. Em que posso ajudar?
         <div class="wa-widget-msg-time">agora</div>
       </div>
       <div class="wa-widget-typing" id="waTyping">
@@ -1754,20 +1749,16 @@
       </div>
     </div>
     <div class="wa-widget-quick" id="waQuick">
-      <button class="wa-widget-quick-btn" data-interest="demo">Quero uma demo</button>
-      <button class="wa-widget-quick-btn" data-interest="teste">Testar 14 dias gratis</button>
-      <button class="wa-widget-quick-btn" data-interest="precos">Ver precos</button>
+      <button class="wa-widget-quick-btn" data-msg="Quero conhecer o LeadFlow">Conhecer</button>
+      <button class="wa-widget-quick-btn" data-msg="Quero ver uma demo">Demo</button>
+      <button class="wa-widget-quick-btn" data-msg="Quanto custa?">Precos</button>
+      <button class="wa-widget-quick-btn" data-msg="Quero testar gratis">Teste gratis</button>
     </div>
-    <div class="wa-widget-form" id="waForm">
-      <div style="font-size:.7rem;color:#666;font-weight:600;padding:0 4px;">Preencha para o bot te contatar pelo WhatsApp:</div>
-      <input type="text" class="wa-widget-input" id="waName" placeholder="Nome *" autocomplete="given-name" required />
-      <input type="email" class="wa-widget-input" id="waEmail" placeholder="E-mail *" autocomplete="email" required />
-      <div style="display:flex;gap:8px;">
-        <input type="tel" class="wa-widget-input" id="waPhone" placeholder="WhatsApp com DDD *" autocomplete="tel" style="flex:1;" required />
-        <button class="wa-widget-send" id="waSend" aria-label="Iniciar conversa">
-          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-        </button>
-      </div>
+    <div class="wa-widget-footer">
+      <input type="text" class="wa-widget-input" id="waInput" placeholder="Digite sua mensagem..." autocomplete="off" />
+      <button class="wa-widget-send" id="waSend" aria-label="Enviar mensagem">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
     </div>
   </div>
 
@@ -1783,30 +1774,28 @@
     const widget = document.getElementById('waWidget');
     const floatBtn = document.getElementById('waFloatBtn');
     const closeBtn = document.getElementById('waClose');
-    const nameInput = document.getElementById('waName');
-    const emailInput = document.getElementById('waEmail');
-    const phoneInput = document.getElementById('waPhone');
+    const input = document.getElementById('waInput');
     const sendBtn = document.getElementById('waSend');
     const chatBody = document.getElementById('waBody');
     const typing = document.getElementById('waTyping');
     const quickBtns = document.getElementById('waQuick');
-    const form = document.getElementById('waForm');
     let isOpen = false;
-    let interest = '';
-    let submitted = false;
+    let sending = false;
+    let sessionId = 'web_' + Math.random().toString(36).substring(2, 15) + '_' + Date.now();
+    let leadId = null;
 
     function toggleWidget() {
       isOpen = !isOpen;
       widget.classList.toggle('open', isOpen);
       floatBtn.classList.toggle('hidden', isOpen);
-      if (isOpen) nameInput.focus();
+      if (isOpen) input.focus();
     }
 
     function addBotMsg(text) {
-      const div = document.createElement('div');
+      var div = document.createElement('div');
       div.className = 'wa-widget-msg wa-widget-msg-bot';
       div.textContent = text;
-      const time = document.createElement('div');
+      var time = document.createElement('div');
       time.className = 'wa-widget-msg-time';
       time.textContent = 'agora';
       div.appendChild(time);
@@ -1815,24 +1804,11 @@
     }
 
     function addUserMsg(text) {
-      const div = document.createElement('div');
+      var div = document.createElement('div');
       div.className = 'wa-widget-msg';
       div.style.cssText = 'background:#DCF8C6;color:#303030;border-bottom-right-radius:2px;align-self:flex-end;';
       div.textContent = text;
-      const time = document.createElement('div');
-      time.className = 'wa-widget-msg-time';
-      time.textContent = 'agora';
-      div.appendChild(time);
-      chatBody.insertBefore(div, typing);
-      chatBody.scrollTop = chatBody.scrollHeight;
-    }
-
-    function addIaMsg(text) {
-      const div = document.createElement('div');
-      div.className = 'wa-widget-msg wa-widget-msg-ia';
-      div.innerHTML = '<div class="wa-ia-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px;"><path d="M12 3l1.5 3.4L17 8l-3.5 1.6L12 13l-1.5-3.4L7 8l3.5-1.6z"/></svg> IA LeadFlow</div>';
-      div.appendChild(document.createTextNode(text));
-      const time = document.createElement('div');
+      var time = document.createElement('div');
       time.className = 'wa-widget-msg-time';
       time.textContent = 'agora';
       div.appendChild(time);
@@ -1843,120 +1819,53 @@
     function showTyping() { typing.classList.add('visible'); chatBody.scrollTop = chatBody.scrollHeight; }
     function hideTyping() { typing.classList.remove('visible'); }
 
-    function normalizePhone(raw) {
-      const digits = raw.replace(/\D/g, '');
-      if (digits.startsWith('55') && digits.length >= 12) return digits;
-      if (digits.length === 11) return '55' + digits;
-      if (digits.length === 10) return '55' + digits.substring(0,2) + '9' + digits.substring(2);
-      return digits;
-    }
-
-    function validatePhone(phone) {
-      const digits = phone.replace(/\D/g, '');
-      return digits.length >= 10 && digits.length <= 13;
-    }
-
-    // Quick buttons set interest and prompt form
-    quickBtns.querySelectorAll('.wa-widget-quick-btn').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        interest = this.dataset.interest;
-        addUserMsg(this.textContent);
-        quickBtns.style.display = 'none';
-        showTyping();
-        setTimeout(function() {
-          hideTyping();
-          addBotMsg('Otimo! Preenche seu nome e WhatsApp aqui embaixo que ja inicio uma conversa com voce pelo bot.');
-          nameInput.focus();
-        }, 800);
-      });
-    });
-
-    function validateEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
-
-    async function submitLead() {
-      if (submitted) return;
-      const name = nameInput.value.trim();
-      const email = emailInput.value.trim();
-      const rawPhone = phoneInput.value.trim();
-
-      if (!name || name.length < 2) {
-        nameInput.style.borderColor = '#EF5350';
-        nameInput.focus();
-        return;
-      }
-      if (!validateEmail(email)) {
-        emailInput.style.borderColor = '#EF5350';
-        emailInput.focus();
-        return;
-      }
-      if (!validatePhone(rawPhone)) {
-        phoneInput.style.borderColor = '#EF5350';
-        phoneInput.focus();
-        return;
-      }
-
-      submitted = true;
-      nameInput.style.borderColor = '';
-      emailInput.style.borderColor = '';
-      phoneInput.style.borderColor = '';
-
-      const phone = normalizePhone(rawPhone);
-      const source = interest ? 'Widget site - ' + interest : 'Widget site LeadFlow';
-
-      addUserMsg(name + ' - ' + rawPhone);
-      form.style.display = 'none';
+    async function sendMessage(text) {
+      if (sending || !text.trim()) return;
+      sending = true;
+      var msg = text.trim();
+      input.value = '';
+      quickBtns.style.display = 'none';
+      addUserMsg(msg);
       showTyping();
 
       try {
-        const res = await fetch(API_BASE + '/api/public/leads', {
+        var res = await fetch(API_BASE + '/api/public/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name, email: email, phone: phone, source: source })
+          body: JSON.stringify({ sessionId: sessionId, message: msg, leadId: leadId })
         });
-
         hideTyping();
 
         if (res.ok) {
-          addIaMsg('Pronto, ' + name + '! Seu cadastro foi registrado. Nosso bot ja vai iniciar uma conversa com voce pelo WhatsApp no numero informado.');
-          setTimeout(function() {
-            addBotMsg('Fique de olho no seu WhatsApp! A conversa vai comecar em instantes.');
-          }, 1000);
-        } else {
-          const data = await res.json().catch(function() { return {}; });
-          if (data.message && data.message.includes('ja registrado')) {
-            addIaMsg('Voce ja esta cadastrado! Nosso time vai entrar em contato em breve.');
-          } else {
-            addBotMsg('Ops, algo deu errado. Tenta novamente em alguns segundos.');
-            submitted = false;
-            form.style.display = '';
+          var data = await res.json();
+          if (data.leadId) leadId = data.leadId;
+          if (data.replies && data.replies.length > 0) {
+            for (var i = 0; i < data.replies.length; i++) {
+              addBotMsg(data.replies[i]);
+            }
           }
+        } else {
+          addBotMsg('Ops, algo deu errado. Tenta novamente.');
         }
       } catch (err) {
         hideTyping();
-        addBotMsg('Nao consegui conectar ao servidor. Verifique sua conexao e tente novamente.');
-        submitted = false;
-        form.style.display = '';
+        addBotMsg('Nao consegui conectar ao servidor. Tente novamente.');
       }
+      sending = false;
+      input.focus();
     }
+
+    // Quick buttons
+    quickBtns.querySelectorAll('.wa-widget-quick-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() { sendMessage(this.dataset.msg); });
+    });
 
     floatBtn.addEventListener('click', toggleWidget);
     closeBtn.addEventListener('click', toggleWidget);
-    sendBtn.addEventListener('click', submitLead);
-    phoneInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); submitLead(); }
+    sendBtn.addEventListener('click', function() { sendMessage(input.value); });
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); sendMessage(input.value); }
     });
-    nameInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); emailInput.focus(); }
-    });
-    emailInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') { e.preventDefault(); phoneInput.focus(); }
-    });
-    // Reset border on input
-    nameInput.addEventListener('input', function() { this.style.borderColor = ''; });
-    emailInput.addEventListener('input', function() { this.style.borderColor = ''; });
-    phoneInput.addEventListener('input', function() { this.style.borderColor = ''; });
   })();
   </script>
 </body>
