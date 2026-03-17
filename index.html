@@ -608,6 +608,10 @@
     .wa-widget-quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 12px;background:#ECE5DD}
     .wa-widget-quick-btn{background:#fff;border:1px solid #d1c4e9;border-radius:50px;padding:6px 14px;font-size:.75rem;font-weight:500;color:var(--ia-purple);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
     .wa-widget-quick-btn:hover{background:var(--ia-purple);color:#fff;border-color:var(--ia-purple)}
+    .wa-widget-options{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .wa-widget-opt-btn{background:#fff;border:1px solid var(--primary);border-radius:8px;padding:10px 14px;font-size:.8rem;font-weight:500;color:var(--primary);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;text-align:left;line-height:1.4}
+    .wa-widget-opt-btn:hover{background:var(--primary);color:#fff}
+    .wa-widget-opt-btn:active{transform:scale(.98)}
     @media(max-width:480px){.wa-widget{bottom:80px;right:8px;left:8px;width:auto;max-height:70vh}}
   </style>
 </head>
@@ -1791,10 +1795,66 @@
       if (isOpen) input.focus();
     }
 
+    function parseOptions(text) {
+      // Detect numbered options: "1 - Text" or "1. Text" or "1) Text"
+      var lines = text.split('\n');
+      var intro = [];
+      var options = [];
+      for (var i = 0; i < lines.length; i++) {
+        var match = lines[i].trim().match(/^(\d+)\s*[-.)]\s*(.+)/);
+        if (match) {
+          options.push({ num: match[1], text: match[2].trim() });
+        } else if (lines[i].trim()) {
+          if (options.length === 0) {
+            intro.push(lines[i]);
+          }
+        }
+      }
+      if (options.length >= 2) {
+        return { intro: intro.join('\n').trim(), options: options };
+      }
+      return null;
+    }
+
     function addBotMsg(text) {
+      // Clean WhatsApp markdown (*bold*)
+      var cleanText = text.replace(/\*/g, '');
+      var parsed = parseOptions(cleanText);
+
       var div = document.createElement('div');
       div.className = 'wa-widget-msg wa-widget-msg-bot';
-      div.textContent = text;
+
+      if (parsed && parsed.options.length >= 2) {
+        // Render intro text
+        if (parsed.intro) {
+          div.appendChild(document.createTextNode(parsed.intro));
+        }
+        // Render option buttons
+        var optionsDiv = document.createElement('div');
+        optionsDiv.className = 'wa-widget-options';
+        parsed.options.forEach(function(opt) {
+          var btn = document.createElement('button');
+          btn.className = 'wa-widget-opt-btn';
+          btn.textContent = opt.text;
+          btn.addEventListener('click', function() {
+            // Disable all option buttons after click
+            optionsDiv.querySelectorAll('.wa-widget-opt-btn').forEach(function(b) {
+              b.disabled = true;
+              b.style.opacity = '0.5';
+              b.style.cursor = 'default';
+            });
+            btn.style.opacity = '1';
+            btn.style.background = 'var(--primary)';
+            btn.style.color = '#fff';
+            sendMessage(opt.num + ' - ' + opt.text);
+          });
+          optionsDiv.appendChild(btn);
+        });
+        div.appendChild(optionsDiv);
+      } else {
+        div.textContent = cleanText;
+      }
+
       var time = document.createElement('div');
       time.className = 'wa-widget-msg-time';
       time.textContent = 'agora';
