@@ -392,7 +392,7 @@
         <h3>Gostou da simulacao?</h3>
         <p>Agende uma demonstracao de 15 minutos e veja o LeadFlow funcionando ao vivo com o seu cenario.</p>
         <div class="prop-cta-btns">
-          <a href="https://wa.me/5534918088778?text=Vi%20a%20proposta%20personalizada%20e%20quero%20agendar%20uma%20demo!" target="_blank" class="btn-prop btn-prop-primary"><i data-lucide="message-circle" style="width:18px;height:18px;"></i> Agendar demo no WhatsApp</a>
+          <a href="https://wa.me/5534990044870?text=Vi%20a%20proposta%20personalizada%20e%20quero%20agendar%20uma%20demo!" target="_blank" class="btn-prop btn-prop-primary"><i data-lucide="message-circle" style="width:18px;height:18px;"></i> Agendar demo no WhatsApp</a>
           <a href="index.html" class="btn-prop btn-prop-outline"><i data-lucide="arrow-left" style="width:18px;height:18px;"></i> Ver site completo</a>
         </div>
       </div>
@@ -690,6 +690,7 @@
     </div>
     <div class="wa-widget-form" id="waForm">
       <input type="text" class="wa-widget-input" id="waName" placeholder="Seu nome" autocomplete="given-name" />
+      <input type="email" class="wa-widget-input" id="waEmail" placeholder="Seu melhor e-mail" autocomplete="email" />
       <div style="display:flex;gap:8px;">
         <input type="tel" class="wa-widget-input" id="waPhone" placeholder="WhatsApp com DDD" autocomplete="tel" style="flex:1;" />
         <button class="wa-widget-send" id="waSend" aria-label="Iniciar conversa">
@@ -707,11 +708,12 @@
 
   <script>
   (function() {
-    var API_BASE = 'https://leadflow-crm.vercel.app';
+    var API_BASE = 'https://comercialflow.vercel.app';
     var widget = document.getElementById('waWidget');
     var floatBtn = document.getElementById('waFloatBtn');
     var closeBtn = document.getElementById('waClose');
     var nameInput = document.getElementById('waName');
+    var emailInput = document.getElementById('waEmail');
     var phoneInput = document.getElementById('waPhone');
     var sendBtn = document.getElementById('waSend');
     var chatBody = document.getElementById('waBody');
@@ -784,38 +786,51 @@
       });
     });
 
+    function validateEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
     function submitLead() {
       if (submitted) return;
       var name = nameInput.value.trim();
+      var email = emailInput.value.trim();
       var rawPhone = phoneInput.value.trim();
       if (!name || name.length < 2) { nameInput.style.borderColor = '#EF5350'; nameInput.focus(); return; }
+      if (!validateEmail(email)) { emailInput.style.borderColor = '#EF5350'; emailInput.focus(); return; }
       if (!validatePhone(rawPhone)) { phoneInput.style.borderColor = '#EF5350'; phoneInput.focus(); return; }
 
       submitted = true;
       nameInput.style.borderColor = '';
+      emailInput.style.borderColor = '';
       phoneInput.style.borderColor = '';
       var phone = normalizePhone(rawPhone);
-      var message = interest ? 'Interesse: ' + interest + ' (via proposta)' : 'Contato via proposta personalizada';
+      var source = interest ? 'Widget proposta - ' + interest : 'Widget proposta LeadFlow';
 
       addUserMsg(name + ' - ' + rawPhone);
       form.style.display = 'none';
       showTyping();
 
-      fetch(API_BASE + '/api/public/interest', {
+      fetch(API_BASE + '/api/public/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, phone: phone, message: message })
+        body: JSON.stringify({ name: name, email: email, phone: phone, source: source })
       }).then(function(res) {
         hideTyping();
         if (res.ok) {
-          addBotMsg('Pronto, ' + name + '! Seu cadastro foi registrado no LeadFlow. Nosso bot ja vai iniciar uma conversa com voce pelo WhatsApp no numero informado.');
+          addBotMsg('Pronto, ' + name + '! Seu cadastro foi registrado. Nosso bot ja vai iniciar uma conversa com voce pelo WhatsApp.');
           setTimeout(function() {
             addBotMsg('Fique de olho no seu WhatsApp! A conversa vai comecar em instantes.');
           }, 1000);
         } else {
-          addBotMsg('Ops, algo deu errado. Tenta novamente em alguns segundos.');
-          submitted = false;
-          form.style.display = '';
+          return res.json().then(function(data) {
+            if (data.message && data.message.includes('ja registrado')) {
+              addBotMsg('Voce ja esta cadastrado! Nosso time vai entrar em contato em breve.');
+            } else {
+              addBotMsg('Ops, algo deu errado. Tenta novamente em alguns segundos.');
+              submitted = false;
+              form.style.display = '';
+            }
+          });
         }
       }).catch(function() {
         hideTyping();
@@ -832,9 +847,13 @@
       if (e.key === 'Enter') { e.preventDefault(); submitLead(); }
     });
     nameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); emailInput.focus(); }
+    });
+    emailInput.addEventListener('keydown', function(e) {
       if (e.key === 'Enter') { e.preventDefault(); phoneInput.focus(); }
     });
     nameInput.addEventListener('input', function() { this.style.borderColor = ''; });
+    emailInput.addEventListener('input', function() { this.style.borderColor = ''; });
     phoneInput.addEventListener('input', function() { this.style.borderColor = ''; });
   })();
   </script>
