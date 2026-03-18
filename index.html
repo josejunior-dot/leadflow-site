@@ -1925,8 +1925,8 @@
       var apiMsg = msg;
       if (chatState.step === 'CONTATO') {
         var phoneDigits = msg.replace(/\D/g, '');
-        if (phoneDigits.length < 10 || phoneDigits.length > 11) {
-          addBotMsg('Numero invalido. Digite no formato (34) 99999-9999');
+        if (phoneDigits.length !== 11) {
+          addBotMsg('Numero incompleto. Digite DDD + 9 digitos. Exemplo: (34) 98426-0970');
           sending = false;
           return;
         }
