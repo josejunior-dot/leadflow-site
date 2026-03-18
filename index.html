@@ -1718,7 +1718,16 @@
       lucide.createIcons();
       revealed.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 
-      console.log('Pricing lead:', { name, email, phone, size });
+      // Enviar lead para o ComercialFlow
+      const planoMap = { '1': 'Starter', '3': 'Growth', '8': 'Scale', '20': 'Enterprise', '50': 'Enterprise' };
+      const plano = planoMap[size] || 'Enterprise';
+      const inboundUrl = (location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.protocol === 'file:' ? 'http://localhost:3000' : 'https://app.leadflow.com.br') + '/api/leads/inbound';
+      console.log('[LeadFlow] Enviando lead para:', inboundUrl, { name, email, phone, teamSize: size, plano });
+      fetch(inboundUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, teamSize: size, plano, source: 'landing_page_pricing' })
+      }).then(r => r.json()).then(d => console.log('[LeadFlow] Resposta:', d)).catch(err => console.error('[LeadFlow] Erro:', err));
 
       setTimeout(() => {
         revealed.scrollIntoView({ behavior: 'smooth', block: 'start' });
