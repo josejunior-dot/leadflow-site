@@ -146,9 +146,13 @@
     .msg-delay-1{animation-delay:.3s}.msg-delay-2{animation-delay:.8s}.msg-delay-3{animation-delay:1.5s}
     .msg-delay-4{animation-delay:2.2s}.msg-delay-5{animation-delay:3s}.msg-delay-6{animation-delay:3.8s}
     .hero-float-card{position:absolute;background:rgba(255,255,255,.12);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-sm);padding:12px 16px;display:flex;align-items:center;gap:10px;animation:floatSlow 5s ease-in-out infinite;z-index:3}
-    .float-card-1{top:80px;right:-20px;animation-delay:.5s}
-    .float-card-2{bottom:120px;left:-30px;animation-delay:1.5s}
-    .float-card-3{top:200px;left:-50px;animation-delay:2.5s}
+    .float-card-1{top:60px;right:-40px;animation-delay:.5s}
+    .float-card-2{bottom:140px;left:-50px;animation-delay:1.5s}
+    .float-card-3{bottom:20px;right:-20px;animation-delay:2.5s}
+    .hero-float-img{width:180px;border-radius:10px;overflow:hidden;padding:0;flex-direction:column;gap:0}
+    .hero-float-img img{width:100%;height:110px;object-fit:cover;display:block}
+    .hero-float-img-label{padding:8px 12px;font-size:.7rem;color:rgba(255,255,255,.8);font-weight:600;display:flex;align-items:center;gap:6px}
+    .hero-float-img-label i[data-lucide]{width:14px;height:14px;color:var(--primary-light)}
     .float-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:rgba(255,255,255,.9)}
     .float-icon i[data-lucide]{width:18px;height:18px}
     .float-text{font-size:.75rem;color:rgba(255,255,255,.7)}.float-value{font-size:.9rem;font-weight:700;color:#fff}
@@ -740,9 +744,9 @@
             </div>
           </div>
         </div>
-        <div class="hero-float-card float-card-1"><div class="float-icon"><i data-lucide="zap"></i></div><div><div class="float-text">Tempo de resposta</div><div class="float-value">&lt; 1 min</div></div></div>
-        <div class="hero-float-card float-card-2"><div class="float-icon"><i data-lucide="sparkles"></i></div><div><div class="float-text">Perfil detectado</div><div class="float-value">Investidor</div></div></div>
-        <div class="hero-float-card float-card-3"><div class="float-icon"><i data-lucide="calendar-check"></i></div><div><div class="float-text">Visita agendada</div><div class="float-value">Automático</div></div></div>
+        <div class="hero-float-card hero-float-img float-card-1"><img src="img/hero-radar.webp" alt="Dashboard Radar de Prioridades" loading="lazy" /><div class="hero-float-img-label"><i data-lucide="gauge"></i> Radar de Prioridades</div></div>
+        <div class="hero-float-card hero-float-img float-card-2"><img src="img/hero-corretor.webp" alt="Corretor usando LeadFlow no celular" loading="lazy" /><div class="hero-float-img-label"><i data-lucide="smartphone"></i> Feito pro corretor</div></div>
+        <div class="hero-float-card hero-float-img float-card-3"><img src="img/hero-pipeline.webp" alt="Pipeline inteligente com priorização" loading="lazy" /><div class="hero-float-img-label"><i data-lucide="columns-3"></i> Pipeline inteligente</div></div>
       </div>
     </div>
   </section>
