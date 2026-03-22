@@ -112,7 +112,7 @@
     .particle-2{width:6px;height:6px;background:var(--ia-purple-light);top:25%;right:15%;animation-delay:1s;opacity:.4}
     .particle-3{width:3px;height:3px;background:var(--primary);top:60%;left:20%;animation-delay:2s;opacity:.6}
     .particle-4{width:5px;height:5px;background:var(--ia-purple);top:70%;right:25%;animation-delay:.5s;opacity:.3}
-    .hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding-top:100px;padding-bottom:80px}
+    .hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;padding-top:100px;padding-bottom:80px}
     .hero-content{max-width:580px}
     .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px 6px 8px;background:rgba(124,77,255,.1);border:1px solid rgba(124,77,255,.2);border-radius:50px;font-size:.8rem;color:var(--ia-purple);margin-bottom:24px;animation:fadeInUp .8s ease}
     .hero-badge-dot{width:8px;height:8px;background:var(--ia-purple);border-radius:50%;animation:pulse-glow 2s infinite}
@@ -130,11 +130,12 @@
     .hero-stat-label{font-size:.8rem;color:#64748b;margin-top:2px}
     .hero-stat-sub{font-size:.7rem;color:var(--primary-light);font-weight:600}
     .hero-visual{position:relative;display:flex;justify-content:center;align-items:center;animation:fadeInRight 1s ease .3s both}
-    .hero-phone{width:300px;height:600px;background:#fff;border-radius:36px;border:3px solid #bfdbfe;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08),0 0 40px rgba(24,119,242,.08)}
+    .hero-phone{width:300px;height:600px;background:#1c1c1e;border-radius:44px;border:none;padding:12px;position:relative;overflow:hidden;box-shadow:0 0 0 2px #333,0 0 0 4px #1a1a1a,0 20px 60px rgba(0,0,0,.3),0 0 40px rgba(24,119,242,.08)}
     .hero-visual::before{content:'';position:absolute;width:350px;height:650px;border-radius:40px;background:linear-gradient(135deg,rgba(24,119,242,.15),rgba(124,77,255,.15));filter:blur(40px);z-index:-1;animation:floatSlow 6s ease-in-out infinite}
     .hero-visual::after{content:'';position:absolute;bottom:-40px;width:260px;height:30px;background:radial-gradient(ellipse,rgba(0,0,0,.1),transparent 70%);filter:blur(10px);z-index:-1}
-    .phone-notch{width:120px;height:28px;background:#f1f5f9;border-radius:0 0 16px 16px;margin:0 auto;position:relative;z-index:5}
-    .phone-screen{padding:0;height:calc(100% - 28px);display:flex;flex-direction:column;background:#ECE5DD}
+    .phone-notch{width:100px;height:24px;background:#1c1c1e;border-radius:0 0 14px 14px;margin:0 auto -12px;position:relative;z-index:5}
+    .phone-notch::after{content:'';position:absolute;top:7px;left:50%;transform:translateX(-50%);width:50px;height:5px;background:#2a2a2e;border-radius:3px}
+    .phone-screen{padding:0;height:100%;display:flex;flex-direction:column;background:#f1f5f9;border-radius:32px;overflow:hidden}
     .phone-header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#075E54;margin-bottom:0}
     .phone-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--ia-purple));display:flex;align-items:center;justify-content:center}
     .phone-contact-name{font-size:.85rem;font-weight:600;color:#fff}
@@ -954,10 +955,10 @@
           <div class="phone-notch"></div>
           <div class="phone-screen" style="background:#f1f5f9;display:flex;flex-direction:column;">
             <!-- Mini app bar -->
-            <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#fff;border-bottom:1px solid #e2e8f0;">
-              <img src="logo-leadflow.png" alt="LF" style="width:20px;height:20px;object-fit:contain;" />
-              <span style="font-size:.7rem;font-weight:700;color:#1e293b;">Pipeline</span>
-              <span style="margin-left:auto;font-size:.55rem;color:#64748b;">14 deals</span>
+            <div style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:#111;border-bottom:none;">
+              <img src="logo-leadflow-white.png" alt="LF" style="width:20px;height:20px;object-fit:contain;" />
+              <span style="font-size:.7rem;font-weight:700;color:#fff;">Pipeline</span>
+              <span style="margin-left:auto;font-size:.55rem;color:rgba(255,255,255,.5);">14 deals</span>
             </div>
             <!-- Mini kanban -->
             <div id="heroKanban" style="flex:1;display:flex;gap:5px;padding:8px 6px;overflow:hidden;position:relative;">
@@ -1051,6 +1052,11 @@
                   <span style="display:inline-block;margin-top:2px;font-size:.35rem;font-weight:600;padding:1px 4px;border-radius:50px;background:rgba(46,125,50,.1);color:#2E7D32;">Vendido</span>
                 </div>
               </div>
+            </div>
+            <!-- Split screen: Forecast / Radar alternando -->
+            <div id="heroSplitScreen" style="flex:1;position:relative;overflow:hidden;border-top:1px solid #e2e8f0;background:#f8fafc;display:flex;align-items:center;justify-content:center;">
+              <img src="img/forecast-mobile.png" alt="Forecast Assistido" class="hero-split-img hero-split-active" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4px;transition:opacity 1s ease;" />
+              <img src="img/dashboard-radar.webp" alt="Radar de Prioridades" class="hero-split-img" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4px;opacity:0;transition:opacity 1s ease;" />
             </div>
           </div>
         </div>
@@ -2012,6 +2018,18 @@
       }
       event.target.classList.add('active');
     }
+
+    /* ─── Hero Split Screen (Forecast / Radar) ──────────── */
+    (() => {
+      const imgs = document.querySelectorAll('.hero-split-img');
+      if (imgs.length < 2) return;
+      let current = 0;
+      setInterval(() => {
+        imgs[current].style.opacity = '0';
+        current = (current + 1) % imgs.length;
+        imgs[current].style.opacity = '1';
+      }, 4000);
+    })();
 
     /* ─── Hero WhatsApp Chat Loop ─────────────────────── */
     (() => {
