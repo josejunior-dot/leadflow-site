@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeadFlow — Janela Inteligente: Fluxo Completo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #1c1e21; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* Header */
+    .header { background: linear-gradient(135deg, #f8fafc, #eef2ff); padding: 48px 24px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+    .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 8px; color: #1e293b; }
+    .header h1 span { background: linear-gradient(135deg, #1877F2, #7C4DFF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .header p { color: #64748b; font-size: .95rem; max-width: 600px; margin: 0 auto; }
+    .header .badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding: 6px 16px; border-radius: 50px; background: rgba(24,119,242,.06); border: 1px solid rgba(24,119,242,.15); color: #1877F2; font-size: .75rem; font-weight: 600; }
+
+    /* Container */
+    .container { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+
+    /* Section titles */
+    .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; color: #1e293b; }
+    .section-desc { font-size: .85rem; color: #64748b; margin-bottom: 32px; line-height: 1.7; }
+
+    /* Concept box */
+    .concept-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; margin-bottom: 48px; }
+    .concept-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: #1877F2; }
+    .concept-box p { font-size: .85rem; color: #475569; margin-bottom: 8px; }
+    .concept-box strong { color: #1e293b; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before { content: ''; position: absolute; left: 16px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+
+    .phase-label { position: relative; margin: 40px 0 20px -40px; padding-left: 40px; }
+    .phase-label h3 { font-size: .9rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; padding: 8px 16px; border-radius: 8px; display: inline-block; }
+    .phase-label.phase-bot h3 { background: #eff6ff; color: #1877F2; }
+    .phase-label.phase-human h3 { background: #f0fdf4; color: #16a34a; }
+    .phase-label.phase-expiring h3 { background: #fffbeb; color: #d97706; }
+    .phase-label.phase-expired h3 { background: #fef2f2; color: #dc2626; }
+    .phase-label.phase-reopen h3 { background: #f5f3ff; color: #7c3aed; }
+
+    .step { position: relative; margin-bottom: 12px; padding: 14px 18px; border-radius: 12px; background: #fff; border: 1px solid #e2e8f0; transition: all .3s; }
+    .step:hover { background: #f8fafc; border-color: #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,.04); }
+
+    /* Dot on timeline */
+    .step::before { content: ''; position: absolute; left: -32px; top: 18px; width: 10px; height: 10px; border-radius: 50%; }
+    .step.signal-green::before { background: #16a34a; box-shadow: 0 0 6px rgba(22,163,74,.3); }
+    .step.signal-yellow::before { background: #d97706; box-shadow: 0 0 6px rgba(217,119,6,.3); }
+    .step.signal-red::before { background: #dc2626; box-shadow: 0 0 6px rgba(220,38,38,.3); }
+    .step.signal-blue::before { background: #1877F2; box-shadow: 0 0 6px rgba(24,119,242,.3); }
+    .step.signal-purple::before { background: #7c3aed; box-shadow: 0 0 6px rgba(124,58,237,.3); }
+
+    .step-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .step-number { font-size: .65rem; font-weight: 700; color: #94a3b8; min-width: 20px; }
+    .step-time { font-size: .7rem; font-weight: 600; color: #64748b; }
+    .step-actor { font-size: .65rem; font-weight: 600; padding: 2px 8px; border-radius: 50px; }
+    .actor-lead { background: #f1f5f9; color: #475569; }
+    .actor-bot { background: #eff6ff; color: #1877F2; }
+    .actor-corretor { background: #f0fdf4; color: #16a34a; }
+    .actor-system { background: #f5f3ff; color: #7c3aed; }
+
+    .step-message { font-size: .82rem; color: #1e293b; margin-bottom: 8px; padding: 8px 12px; border-radius: 8px; display: inline-block; max-width: 85%; }
+    .msg-lead { background: #f1f5f9; border-bottom-right-radius: 2px; }
+    .msg-bot { background: #eff6ff; border-bottom-left-radius: 2px; }
+    .msg-corretor { background: #f0fdf4; border-bottom-left-radius: 2px; }
+    .msg-system { background: #f5f3ff; font-style: italic; font-size: .75rem; color: #6b7280; }
+
+    .step-meta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 4px; font-size: .68rem; }
+    .meta-label { color: #94a3b8; }
+    .meta-value { font-weight: 600; }
+    .meta-green { color: #16a34a; }
+    .meta-yellow { color: #d97706; }
+    .meta-red { color: #dc2626; }
+    .meta-blue { color: #1877F2; }
+    .meta-purple { color: #7c3aed; }
+
+    /* Rules section */
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 48px 0; }
+    .rule-card { padding: 20px; border-radius: 14px; border: 1px solid #e2e8f0; }
+    .rule-card h4 { font-size: .8rem; font-weight: 700; margin-bottom: 8px; }
+    .rule-card p { font-size: .75rem; color: #475569; line-height: 1.6; }
+    .rule-card strong { color: #1e293b; }
+    .rule-meta { background: #eff6ff; border-color: #bfdbfe; }
+    .rule-meta h4 { color: #1877F2; }
+    .rule-leadflow { background: #f0fdf4; border-color: #bbf7d0; }
+    .rule-leadflow h4 { color: #16a34a; }
+
+    /* Cost table */
+    .cost-section { margin: 48px 0; }
+    .cost-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+    .cost-table th { background: #f8fafc; color: #475569; font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid #e2e8f0; font-size: .7rem; text-transform: uppercase; letter-spacing: .05em; }
+    .cost-table td { padding: 10px 14px; border-bottom: 1px solid #f1f5f9; color: #334155; }
+    .cost-table tr:hover td { background: #f8fafc; }
+    .cost-free { color: #16a34a; font-weight: 600; }
+    .cost-paid { color: #dc2626; font-weight: 600; }
+    .cost-zero { color: #16a34a; font-weight: 700; }
+    .cost-total { background: #f8fafc; font-weight: 700; }
+    .cost-total td { border-top: 2px solid #e2e8f0; color: #1e293b; }
+    .cost-note { font-size: .7rem; color: #94a3b8; margin-top: 12px; font-style: italic; }
+
+    /* Footer */
+    .doc-footer { text-align: center; padding: 40px 24px; border-top: 1px solid #e2e8f0; margin-top: 48px; }
+    .doc-footer p { font-size: .7rem; color: #94a3b8; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 { font-size: 1.5rem; }
+      .rules { grid-template-columns: 1fr; }
+      .step-message { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Janela Inteligente: <span>Fluxo Completo</span></h1>
+    <p>Documentação do ciclo de vida da janela de 24h/72h da Meta WhatsApp Business API aplicada ao LeadFlow.</p>
+    <div class="badge">Documento interno &middot; Atualizado em 20/03/2026</div>
+  </div>
+
+  <div class="container">
+
+    <!-- CONCEPT -->
+    <div class="concept-box">
+      <h3>Como funciona a janela da Meta</h3>
+      <p>Quando o lead envia uma mensagem, abre-se uma <strong>janela de atendimento de 24h</strong>. Dentro dela, o envio de mensagens livres (free-form) e permitido. Quando a janela fecha, retomar o contato exige <strong>template aprovado</strong> pela Meta.</p>
+      <p>Se o lead veio de <strong>Click-to-WhatsApp Ad</strong> ou <strong>Facebook Page CTA</strong>, pode haver uma janela estendida de <strong>72h</strong> (Free Entry Point), desde que a empresa responda dentro das primeiras 24h.</p>
+      <p style="margin-top:12px;color:#94a3b8;font-size:.75rem"><strong style="color:#475569">Importante:</strong> O LeadFlow abstrai os custos da Meta em "creditos do plano". O uso de template aprovado pode consumir creditos conforme o plano contratado. Essa e uma regra comercial do LeadFlow, nao uma cobranca direta da Meta ao usuario final.</p>
+    </div>
+
+    <!-- PHASE 1: BOT QUALIFICATION -->
+    <h2 class="section-title">Fase 1 — Qualificacao pelo Bot com IA</h2>
+    <p class="section-desc">O lead chega via WhatsApp (organico ou anuncio). O bot qualifica automaticamente enquanto a janela esta aberta. Todo o atendimento do bot ocorre dentro da janela — envio livre, sem custo de template.</p>
+
+    <div class="timeline">
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#1</span>
+          <span class="step-time">Quinta 09:38</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Oi, vi o anuncio do apartamento no Centro"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Abriu 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Cria lead + inicia bot</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#2</span>
+          <span class="step-time">09:38 (+30s)</span>
+          <span class="step-actor actor-bot">Bot IA</span>
+        </div>
+        <div class="step-message msg-bot">"Ola! Sou a assistente da imobiliaria. Pode me contar o que procura?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Aberta (envio livre)</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Resposta em 30s — station WELCOME</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#3</span>
+          <span class="step-time">09:39</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Quero 2 quartos, ate 350 mil, perto do metro"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Station FILTER — coleta tipo + budget + localizacao</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#4</span>
+          <span class="step-time">09:39</span>
+          <span class="step-actor actor-bot">Bot IA</span>
+        </div>
+        <div class="step-message msg-bot">"Perfeito! Encontrei 3 opcoes na sua faixa. Vou enviar agora."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Aberta (envio livre)</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Station VALUE — match com imoveis</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#5</span>
+          <span class="step-time">09:42</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Gostei da opcao 2. Posso visitar?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Station CLOSING — detecta intencao de visita</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#6</span>
+          <span class="step-time">09:42</span>
+          <span class="step-actor actor-bot">Bot IA</span>
+        </div>
+        <div class="step-message msg-bot">"Otimo! Qual dia e horario ficam melhor para voce?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Solicita agendamento</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#7</span>
+          <span class="step-time">09:45</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Sabado de manha, pode ser?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Agenda visita + score sobe</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-blue">
+        <div class="step-header">
+          <span class="step-number">#8</span>
+          <span class="step-time">09:45</span>
+          <span class="step-actor actor-bot">Bot IA</span>
+        </div>
+        <div class="step-message msg-bot">"Agendado! Sabado as 10h. Um corretor entrara em contato para confirmar. Obrigada!"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-purple">HANDOFF — transfere para corretor. Lead QUALIFICADO.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: HUMAN TAKEOVER -->
+    <div class="timeline" style="margin-top:48px">
+      <div class="phase-label phase-human"><h3>Fase 2 — Corretor assume (janela ativa)</h3></div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#9</span>
+          <span class="step-time">10:15</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Oi Maria, sou o Carlos da imobiliaria. Vi que voce agendou visita no Residencial Centro. Confirmo sabado 10h?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Aberta (~23h restantes)</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Envio livre — dentro da janela</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#10</span>
+          <span class="step-time">10:20</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Confirmado! Pode ser no local ou na imobiliaria?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#11</span>
+          <span class="step-time">10:22</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Vamos direto no imovel. Envio a localizacao na vespera."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Envio livre — conversa fluindo</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: SILENCE + EXPIRING -->
+    <div class="timeline" style="margin-top:48px">
+      <div class="phase-label phase-expiring"><h3>Fase 3 — Lead silencia, janela expirando</h3></div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#12</span>
+          <span class="step-time">Sexta 08:30</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Bom dia Maria! Amanha e a visita. Segue a localizacao: [link maps]"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">~2h restantes (ultimo inbound foi quinta 10:20)</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Envio livre — ainda dentro da janela</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-yellow">
+        <div class="step-header">
+          <span class="step-number">#13</span>
+          <span class="step-time">Sexta 08:20</span>
+          <span class="step-actor actor-system">LeadFlow</span>
+        </div>
+        <div class="step-message msg-system">Alerta: janela expira em 2h. Lead score 78 (quente). Acao sugerida: provocar resposta.</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Timer:</span> <span class="meta-value meta-yellow">1h 58min restantes</span></div>
+          <div class="meta-item"><span class="meta-label">Acao:</span> <span class="meta-value meta-yellow">Provocar resposta para renovar janela</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#14</span>
+          <span class="step-time">09:00</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Obrigada! Estarei la as 10h."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Janela renovada. Visita confirmada.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: EXPIRED + TEMPLATE -->
+    <div class="timeline" style="margin-top:48px">
+      <div class="phase-label phase-expired"><h3>Fase 4 — Janela expira (sem resposta)</h3></div>
+
+      <p class="section-desc" style="padding-left:0;margin-top:-16px">Cenario alternativo: o lead nao responde e a janela fecha.</p>
+
+      <div class="step signal-yellow">
+        <div class="step-header">
+          <span class="step-number">#15</span>
+          <span class="step-time">+22h sem resposta</span>
+          <span class="step-actor actor-system">LeadFlow</span>
+        </div>
+        <div class="step-message msg-system">Alerta: faltam 2h para a janela fechar. Score 78. Acao: provocar resposta.</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Timer:</span> <span class="meta-value meta-yellow">2h restantes</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-yellow">
+        <div class="step-header">
+          <span class="step-number">#16</span>
+          <span class="step-time">+23h30 sem resposta</span>
+          <span class="step-actor actor-system">LeadFlow</span>
+        </div>
+        <div class="step-message msg-system">Alerta critico: faltam 30min. Lead quente. Urgencia maxima.</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Timer:</span> <span class="meta-value meta-red">30min restantes</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-red">
+        <div class="step-header">
+          <span class="step-number">#17</span>
+          <span class="step-time">+24h</span>
+          <span class="step-actor actor-system">LeadFlow</span>
+        </div>
+        <div class="step-message msg-system">Janela expirada. Envio livre indisponivel. Template aprovado necessario para retomar contato.</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Timer:</span> <span class="meta-value meta-red">Expirada</span></div>
+          <div class="meta-item"><span class="meta-label">Input:</span> <span class="meta-value meta-red">Bloqueado para free-form</span></div>
+          <div class="meta-item"><span class="meta-label">Acao:</span> <span class="meta-value meta-red">Template aprovado sugerido</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-red">
+        <div class="step-header">
+          <span class="step-number">#18</span>
+          <span class="step-time">Corretor decide</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor" style="background:#fef2f2;border:1px solid #fecaca">Template sugerido: "Ola Maria, amanha e sua visita ao Residencial Centro as 10h. Confirma?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-red">Pode consumir 1 credito do plano</span></div>
+          <div class="meta-item"><span class="meta-label">Meta:</span> <span class="meta-value meta-blue">Template aprovado exigido</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#19</span>
+          <span class="step-time">Lead responde</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Sim, confirmado!"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reabre 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-purple">windowReopenCount +1 (analytics)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 5: POST-VISIT NEGOTIATION -->
+    <div class="timeline" style="margin-top:48px">
+      <div class="phase-label phase-reopen"><h3>Fase 5 — Pos-visita e negociacao</h3></div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#20</span>
+          <span class="step-time">Sabado 10:45</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Maria, obrigado pela visita! O que achou do imovel?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Aberta (lead respondeu ontem)</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Envio livre dentro da janela</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#21</span>
+          <span class="step-time">12:20</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Gostei do imovel. Quero entender condicao de entrada."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Nova janela abriu</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-purple">Reabre thread quente pos-visita</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#22</span>
+          <span class="step-time">12:22</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Claro. Voce pretende financiar ou pagar parte maior de entrada?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Abre etapa de negociacao</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#23</span>
+          <span class="step-time">12:30</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Financiar, com entrada de uns 150 mil."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Atualiza perfil financeiro</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#24</span>
+          <span class="step-time">12:32</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Perfeito. Com esse perfil ja consigo simular uma proposta inicial."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Proximo passo sugerido: PROPOSTA</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#25</span>
+          <span class="step-time">12:50</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Pode seguir."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Marca aceite para proposta</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#26</span>
+          <span class="step-time">13:10</span>
+          <span class="step-actor actor-corretor">Corretor</span>
+        </div>
+        <div class="step-message msg-corretor">"Consegui uma condicao inicial. Posso te ligar 5 min para explicar?"</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-blue">Sugere contato de maior profundidade</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-green">
+        <div class="step-header">
+          <span class="step-number">#27</span>
+          <span class="step-time">13:20</span>
+          <span class="step-actor actor-lead">Lead</span>
+        </div>
+        <div class="step-message msg-lead">"Pode."</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Janela:</span> <span class="meta-value meta-green">Reinicia 24h</span></div>
+          <div class="meta-item"><span class="meta-label">LeadFlow:</span> <span class="meta-value meta-green">Lead altamente engajado</span></div>
+        </div>
+      </div>
+
+      <div class="step signal-purple">
+        <div class="step-header">
+          <span class="step-number">#28</span>
+          <span class="step-time">14:00</span>
+          <span class="step-actor actor-system">LeadFlow</span>
+        </div>
+        <div class="step-message msg-system">Evento interno: estagio atualizado para NEGOCIACAO. Oportunidade madura.</div>
+        <div class="step-meta">
+          <div class="meta-item"><span class="meta-label">Pipeline:</span> <span class="meta-value meta-purple">QUALIFICADO &rarr; NEGOCIACAO</span></div>
+          <div class="meta-item"><span class="meta-label">Score:</span> <span class="meta-value meta-green">92 (muito quente)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COST ANALYSIS -->
+    <div class="cost-section">
+      <h2 class="section-title" style="margin-top:64px">Analise de custos deste fluxo</h2>
+      <p class="section-desc">Calculo real dos creditos consumidos em cada etapa, considerando a janela de 24h e as regras do LeadFlow.</p>
+
+      <table class="cost-table">
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Quem</th>
+            <th>Tipo de envio</th>
+            <th>Janela</th>
+            <th>Creditos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>#1 Lead manda msg</td><td>Lead</td><td>Inbound</td><td class="cost-free">Abre 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#2 Bot responde</td><td>Bot IA</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#3 Lead responde</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reinicia 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#4 Bot qualifica</td><td>Bot IA</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#5 Lead escolhe imovel</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reinicia 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#6 Bot pergunta horario</td><td>Bot IA</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#7 Lead agenda visita</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reinicia 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#8 Bot confirma + handoff</td><td>Bot IA</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#9 Corretor confirma</td><td>Corretor</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#10 Lead confirma local</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reinicia 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#11 Corretor responde</td><td>Corretor</td><td>Envio livre</td><td class="cost-free">Aberta</td><td class="cost-zero">0</td></tr>
+          <tr><td>#12 Corretor envia localizacao</td><td>Corretor</td><td>Envio livre</td><td class="cost-free">~2h restantes</td><td class="cost-zero">0</td></tr>
+          <tr><td>#13 Alerta 2h</td><td>Sistema</td><td>Interno</td><td style="color:#d97706">Expirando</td><td class="cost-zero">0</td></tr>
+          <tr><td>#14 Lead confirma visita</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reinicia 24h</td><td class="cost-zero">0</td></tr>
+          <tr style="background:#fffbeb"><td>#18 Template pos-expiracao</td><td>Corretor</td><td>Template aprovado</td><td class="cost-paid">Expirada</td><td class="cost-paid">1 cred</td></tr>
+          <tr><td>#19 Lead responde template</td><td>Lead</td><td>Inbound</td><td class="cost-free">Reabre 24h</td><td class="cost-zero">0</td></tr>
+          <tr><td>#20-#27 Negociacao pos-visita</td><td>Corretor + Lead</td><td>Envio livre</td><td class="cost-free">Janela renovada</td><td class="cost-zero">0</td></tr>
+          <tr class="cost-total">
+            <td colspan="4">Total de creditos consumidos neste fluxo (28 etapas)</td>
+            <td>1 credito</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="cost-note">* Cenario com 1 template fora da janela. Sem a gestao inteligente do LeadFlow, o corretor poderia ter enviado 3-5 templates desnecessarios (3-5 creditos). Economia: ~80% neste caso.</p>
+
+      <div class="rules" style="margin-top:24px">
+        <div class="rule-card rule-leadflow">
+          <h4>Custo de IA (GPT)</h4>
+          <p><strong>8 mensagens do bot</strong> neste fluxo.</p>
+          <p>Custo real GPT-4 Mini: ~R$ 0,02 (dois centavos).</p>
+          <p><strong>Incluso em todos os planos — nao consome creditos.</strong></p>
+        </div>
+        <div class="rule-card rule-meta">
+          <h4>Custo Meta (canal WhatsApp)</h4>
+          <p><strong>27 mensagens dentro da janela:</strong> envio livre, sem template.</p>
+          <p><strong>1 template aprovado</strong> fora da janela: pode consumir 1 credito do plano.</p>
+          <p>A cobranca da Meta ao provedor varia por pais e categoria de template.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RULES -->
+    <h2 class="section-title" style="margin-top:64px">Regras importantes</h2>
+    <p class="section-desc">Separacao clara entre regras da Meta e regras comerciais do LeadFlow.</p>
+
+    <div class="rules">
+      <div class="rule-card rule-meta">
+        <h4>Regra da Meta (WhatsApp Business API)</h4>
+        <p><strong>Dentro da janela (24h/72h):</strong> envio de mensagens livres (free-form) permitido.</p>
+        <p><strong>Fora da janela:</strong> apenas templates aprovados pela Meta.</p>
+        <p><strong>Renovacao:</strong> cada nova mensagem do lead reinicia a janela.</p>
+        <p><strong>Free Entry Point:</strong> leads de anuncio/CTA podem ter janela de 72h.</p>
+      </div>
+      <div class="rule-card rule-leadflow">
+        <h4>Regra do LeadFlow (produto)</h4>
+        <p><strong>Envio livre dentro da janela:</strong> nao consome creditos do plano.</p>
+        <p><strong>Template aprovado fora da janela:</strong> pode consumir creditos do plano conforme tipo (utilidade = 1 cred, marketing = 2 cred).</p>
+        <p><strong>Decisao inteligente:</strong> sistema analisa score, urgencia e janela antes de sugerir gasto.</p>
+        <p><strong>IA inclusa:</strong> processamento GPT nao consome creditos (custo absorvido).</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="doc-footer">
+    <p>LeadFlow &mdash; CRM Imobiliario com Inteligencia Artificial</p>
+    <p style="margin-top:4px">Documento gerado em 20/03/2026 &middot; Uso interno</p>
+  </div>
+
+</body>
+</html>
